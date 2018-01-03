@@ -1,7 +1,7 @@
 #
 # Set personal aliases
 #
-# For a full list of active aliases, run `alias`.
+# For a full list of active aliases, run `alias`
 echo $'\e[34m'" (l)ls la lsd .. ... .... ..... o ql f v :q clc subl matlab j"   
 echo " htop path ql ungzip fs diskspace_report ip/2 hosts flushdns"
 echo " emtpytrash hide/showdesktop hibernateon/off show/hidedotfiles"
