@@ -1,5 +1,13 @@
-Simply place all the relevant dotfiles in .mydotfiles
-and immediately create a symbolic link by 
+Welcome to my own dotfile repository!
+
+For the purpose of safe storage/backup as well as sharing,
+I have placed all my relevant dotfiles in a local (git) 
+repository folder called .mydotfiles  . Next, I have
+immediately created a symbolic link by 
 
 e.g.  ln -s .mydotfiles/.bash_profile .bash_profile
 
+so that (a link to) each dotfile was accessbile from ~/
+
+Enjoy!
+Michele
