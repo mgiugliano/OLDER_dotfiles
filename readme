@@ -1,0 +1,5 @@
+Simply place all the relevant dotfiles in .mydotfiles
+and immediately create a symbolic link by 
+
+e.g.  ln -s .mydotfiles/.bash_profile .bash_profile
+

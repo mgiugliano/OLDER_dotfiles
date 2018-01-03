@@ -1,0 +1,5 @@
+ssl_verify: true
+channels:
+  - brian-team
+  - anaconda-fusion
+  - defaults
