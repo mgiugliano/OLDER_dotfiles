@@ -45,7 +45,7 @@ alias less='less -FRXc'                    # Preferred 'less' implementation
 alias ungzip="gunzip -k"
 alias which='type -all'                     # which:        Find executables
 alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
-ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
+ql() { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
 
 
 # Disc utils and File size
@@ -86,9 +86,13 @@ alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias matlab="/Applications/MATLAB_R2017a.app/bin/matlab -nodesktop -nosplash"
 alias j="julia"
 
-alias imac="~/vpn.sh UA; xhost +imac;  ssh michi@imac"
-alias mini="~/vpn.sh UA; xhost +macmini;  ssh michele@macmini"
-alias bigcrunch="~/vpn.sh UA; xhost +bigcrunch;  ssh michi@bigcrunch"
+#alias imac="~/vpn.sh UA; xhost +imac;  ssh michi@imac"
+#alias mini="~/vpn.sh UA; xhost +macmini;  ssh michele@macmini"
+#alias bigcrunch="~/vpn.sh UA; xhost +bigcrunch;  ssh michi@bigcrunch"
+
+alias imac="~/vpn.sh UA; ssh michi@imac -t '~/tm.sh'"
+alias mini="~/vpn.sh UA; ssh michele@macmini -t '~/tm.sh'"
+alias bigcrunch="~/vpn.sh UA; ssh michi@bigcrunch -t 'source ~/tm.sh'"
 
 # Enable hibernation
 alias hibernateon="sudo pmset -a hibernatemode 5"

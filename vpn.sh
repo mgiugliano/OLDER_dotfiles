@@ -27,7 +27,7 @@ function isnt_connected () {
 scutil --nc start "$vpn"
 
 if poll_until_connected "$vpn"; then
-		    echo "Connected to $vpn!"
+		    echo "Connected to $vpn vpn!"
 			    exit 0
 		else
 				    echo "I'm too impatient!"
