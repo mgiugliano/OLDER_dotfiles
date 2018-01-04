@@ -2,9 +2,10 @@
 # Set personal aliases
 #
 # For a full list of active aliases, run `alias`
-echo $'\e[34m'" (l)ls la lsd .. ... .... ..... o ql f v :q clc subl matlab j"   
-echo " htop path ql ungzip fs diskspace_report ip/2 hosts flushdns"
-echo " emtpytrash hide/showdesktop hibernateon/off show/hidedotfiles"
+
+#echo $'\e[34m'" (l)ls la lsd .. ... .... ..... o ql f v :q clc subl matlab j"   
+#echo " htop path ql ungzip fs diskspace_report ip/2 hosts flushdns"
+#echo " emtpytrash hide/showdesktop hibernateon/off show/hidedotfiles"
 echo
 
 # Enable aliases to be sudo’ed
@@ -32,7 +33,8 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-
+alias cwd="cd $CWD"
+alias scwd="export CWD=$(pwd)"
 # mv, rm, cp, gunzip
 #
 alias mv='mv -i -v'
@@ -90,6 +92,9 @@ alias j="julia"
 #alias mini="~/vpn.sh UA; xhost +macmini;  ssh michele@macmini"
 #alias bigcrunch="~/vpn.sh UA; xhost +bigcrunch;  ssh michi@bigcrunch"
 
+# I am using tmux as an environment (for both local and remote connections): started up programs and processes will stay in the background upon "detaching" from the session.
+#
+alias tm="~/tm.sh" 
 alias imac="~/vpn.sh UA; ssh michi@imac -t '~/tm.sh'"
 alias mini="~/vpn.sh UA; ssh michele@macmini -t '~/tm.sh'"
 alias bigcrunch="~/vpn.sh UA; ssh michi@bigcrunch -t 'source ~/tm.sh'"

@@ -30,7 +30,7 @@ if poll_until_connected "$vpn"; then
 		    echo "Connected to $vpn vpn!"
 			    exit 0
 		else
-				    echo "I'm too impatient!"
+				    echo "Connection timing out?!"
 					    scutil --nc stop "$vpn"
 						    exit 1
 					fi

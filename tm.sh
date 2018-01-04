@@ -8,19 +8,22 @@
 
 # present menu for user to choose which workspace to open
 TMUXCMD=/usr/local/bin/tmux
-PS3="Please choose your session: "
-options=($($TMUXCMD list-sessions -F "#S" 2>/dev/null) "New simple TMUX session" "New advanced TMUX session" "New Julia Session" "bash-login (no TMUX)")
-echo "You are on $(hostname): the available TMUX sessions are"
+PS3="?> "
+options=($($TMUXCMD list-sessions -F "#S" 2>/dev/null) "New simple tmux session" "New advanced tmux session" "New Julia Session" "bash-login (no tmux)")
+
+echo " "
+echo "tmux[ctrl-a] manager - welcome to <$(hostname)>!"
+echo "Make your choice:"
 echo " "
 select opt in "${options[@]}"
 do
 	case $opt in
-		"New simple TMUX session")
+		"New simple tmux session")
 			read -p "Enter new TMUX session name: " SESSION_NAME
 			$TMUXCMD new -s "$SESSION_NAME"
 			break
 			;;
-        "New advanced TMUX session")
+        "New advanced tmux session")
             read -p "Enter new TMUX session name: " SESSION_NAME
             $TMUXCMD new -s "$SESSION_NAME" -d 'bash'
 			$TMUXCMD split-window -v 'bash'
