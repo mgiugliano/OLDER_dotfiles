@@ -87,6 +87,7 @@ alias clc="clear"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias matlab="/Applications/MATLAB_R2017a.app/bin/matlab -nodesktop -nosplash"
 alias j="julia"
+alias cw="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/single_characters/"
 
 #alias imac="~/vpn.sh UA; xhost +imac;  ssh michi@imac"
 #alias mini="~/vpn.sh UA; xhost +macmini;  ssh michele@macmini"
