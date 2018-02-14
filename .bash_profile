@@ -53,9 +53,10 @@ prompt
 
   export PATH="$PATH:/usr/local/bin/"
   export PATH="$PATH:/Applications/Julia-0.6.app/Contents/Resources/julia/bin"  #added for Julia
-  export PATH="$PATH:/Applications/NEURON-7.4/nrn/x86_64/bin"                   #added by NEURON installer
+  export PATH="$PATH:/Applications/NEURON-7.5/nrn/x86_64/bin"                   #added by NEURON installer
   export PATH="$PATH:/opt/X11/bin"
   export PATH="$PATH:/Library/TeX/texbin"
+  export PATH="$PATH:/Applications/gnuplot/bin"
   export PATH="$PATH:/Users/michi/anaconda/bin"                     # added by Anaconda3 4.3.1 installer
 
 #   Set Default Editor (change 'Vim' to the editor of your choice)

@@ -87,7 +87,13 @@ alias clc="clear"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias matlab="/Applications/MATLAB_R2017a.app/bin/matlab -nodesktop -nosplash"
 alias j="julia"
-alias cw="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/single_characters/"
+alias cws="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/single_characters && ./CWsingle 1 2 3 4 5 6 7 8 9 0 = q w e r t y u i o p a s d f g h j k l z x c v b n m / ?"
+alias cwp="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/pairs_characters && ./CWpairs q w e r t y u i o p a s d f g h j k l z x c v b n m"
+alias neurojupyter='docker run -d --name myneurojupyter -p 8888:8888 -v "/Users/michi:/opt/notebooks" meekeee/neurojupyter'
+alias qneurojupyter='docker stop myneurojupyter && docker rm myneurojupyter'
+
+#plot() { gnuplot -e "set terminal png; plot '$@' using 1:2 with line" | imgcat; }
+plot() { gnuplot -persist -e "set terminal x11; plot '$@' using 1:2 with line"; } 
 
 #alias imac="~/vpn.sh UA; xhost +imac;  ssh michi@imac"
 #alias mini="~/vpn.sh UA; xhost +macmini;  ssh michele@macmini"
