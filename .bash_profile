@@ -40,6 +40,10 @@ function prompt {
   local WHITEBOLD="\[\033[1;37m\]"
   local RESETCOLOR="\[\e[00m\]"
 
+  local iRED="\[\033[7;31m\]"
+  local iPURPLE="\[\033[7;35m\]"
+  local iBLUE="\[\033[7;34m\]"
+
   #export PS1="\n$RED\u $PURPLE@ $GREEN\w $RESETCOLOR$GREENBOLD\$(git branch 2&gt; /dev/null)\n $BLUE[\#] → $RESETCOLOR"
   #export PS2=" | → $RESETCOLOR"
 
@@ -67,6 +71,9 @@ prompt
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
 
+# Autocomplete without case-sensitivity
+set show-all-if-ambiguous on
+set completion-ignore-case on
 
 # added by MG as a remedy to the import matplotlib error messages
 export LC_ALL=en_US.UTF-8
