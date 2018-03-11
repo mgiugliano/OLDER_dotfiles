@@ -71,6 +71,13 @@ prompt
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
 
+# Ignore duplicate commands in the history
+export HISTCONTROL=ignoredups
+
+# Increase the maximum number of lines contained in the history file
+# (default is 500)
+export HISTFILESIZE=10000
+
 # Autocomplete without case-sensitivity
 set show-all-if-ambiguous on
 set completion-ignore-case on
@@ -80,3 +87,14 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+# Only show the current directory's name in the tab of iTerm
+export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
+
+# Make new shells get the history lines from all previous
+# shells instead of the default "last window closed" history
+export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+

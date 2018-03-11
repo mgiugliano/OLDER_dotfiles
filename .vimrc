@@ -33,7 +33,9 @@
 set nocompatible                  " Use Vim settings, rather than Vi settings (much better!).
 set backspace=indent,eol,start    " Make backspace behave in a sane manner.
 set ruler
-set nonumber
+"set nonumber
+set number
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 syntax on                         " Switch syntax highlighting on
 filetype plugin indent on         " Enable file type detection and do language-dependent indenting.
 "set number                        " Show line numbers
