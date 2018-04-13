@@ -47,6 +47,7 @@ function prompt {
   #export PS1="\n$RED\u $PURPLE@ $GREEN\w $RESETCOLOR$GREENBOLD\$(git branch 2&gt; /dev/null)\n $BLUE[\#] → $RESETCOLOR"
   #export PS2=" | → $RESETCOLOR"
 
+ #export PS1="$RED\u$PURPLE@$BLUE\h:$GREEN\W$RESETCOLOR\$ "
  export PS1="$RED\u$PURPLE@$BLUE\W$RESETCOLOR\$ "
 }
 
@@ -98,3 +99,5 @@ export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
 
+# Launches the "z" (jump around folders) command
+source ~/z.sh

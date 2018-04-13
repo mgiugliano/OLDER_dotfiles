@@ -39,7 +39,7 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 syntax on                         " Switch syntax highlighting on
 filetype plugin indent on         " Enable file type detection and do language-dependent indenting.
 "set number                        " Show line numbers
-set clipboard=unnamed
+set clipboard=unnamed			   " Integration with OSX copy/paste 
 map <C-C> :.w !pbcopy<CR><CR>
 map <C-P> :r !pbpaste<CR>
 nnoremap  ;  :
@@ -47,7 +47,7 @@ nnoremap  ;  :
 set hidden                        " Allow hidden buffers, don't limit to 1 file per window/split
 set mouse=a"n                     " Enable the mouse but only in normal mode
 set ttymouse=xterm2
-"set cursorline                    " highlight current line
+set cursorline                    " highlight current line
 "set cursorcolumn 				   " highlight current column
 set showcmd                       " show command in bottom bar
 set cmdheight=1
@@ -108,3 +108,5 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+color dracula

@@ -6,6 +6,7 @@
 #echo $'\e[34m'" (l)ls la lsd .. ... .... ..... o ql f v :q clc subl matlab j"   
 #echo " htop path ql ungzip fs diskspace_report ip/2 hosts flushdns"
 #echo " emtpytrash hide/showdesktop hibernateon/off show/hidedotfiles"
+#echo " plot plot1 done2slack spotlight"
 echo
 
 # Enable aliases to be sudo’ed (note the final space character)
@@ -78,6 +79,29 @@ alias qfind="find . -name"		#  qfind:    Quickly search for file
 #   -----------------------------------------------------------
 spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
 
+# Slack integration webhook
+done2slack () { echo "Processing done" | slacktee.sh -a "good" -e "Date and Time" "$(date)" -s "Host" "$(hostname)"; }
+
+# Academic writing tips
+doi2bib() {
+ echo "Searching $1..."
+ echo >> bib.bib
+ curl -s "http://api.crossref.org/works/$1/transform/application/x-bibtex" >> bib.bib;
+ echo >> bib.bib
+ echo "Appended to bib.bib"
+}
+
+pmid2bib() {
+ echo "Searching $1..."
+ echo >> bib.bib
+ curl -s "http://www.bioinformatics.org/texmed/cgi-bin/list.cgi?PMID=$1" | tail -n +15 | sed '$d' | sed '$d' | sed '$d' | sed '$d' >> bib.bib
+ echo >> bib.bib
+ echo "Appended to bib.bib"
+}
+
+
+# SSH Tunnel to acces the lab wiki
+wiki() { ssh -fN -L 10000:telstar:80 michele@castafiore ; }
 
 # Networking. IP address, dig, DNS, Enhanced WHOIS lookups
 #
@@ -124,7 +148,7 @@ alias clc="clear"
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
-alias matlab="/Applications/MATLAB_R2017a.app/bin/matlab -nodesktop -nosplash"
+alias matlab="/Applications/MATLAB_R2018a.app/bin/matlab -nodesktop -nosplash"
 alias j="julia"
 alias cws="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/single_characters && ./CWsingle 1 2 3 4 5 6 7 8 9 0 = q w e r t y u i o p a s d f g h j k l z x c v b n m / ?"
 alias cwp="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/pairs_characters && ./CWpairs q w e r t y u i o p a s d f g h j k l z x c v b n m"
@@ -133,17 +157,20 @@ alias qneurojupyter='docker stop myneurojupyter && docker rm myneurojupyter'
 
 #plot() { gnuplot -e "set terminal png; plot '$@' using 1:2 with line" | imgcat; }
 plot() { gnuplot -persist -e "set terminal x11; plot '$@' using 1:2 with line"; } 
+plot1() { gnuplot -persist -e "set terminal x11; plot '$@' with line"; } 
 
 #alias imac="~/vpn.sh UA; xhost +imac;  ssh michi@imac"
-#alias mini="~/vpn.sh UA; xhost +macmini;  ssh michele@macmini"
+#alias mini="~/vpn.sh UA; xhost +mini;  ssh michele@mini"
 #alias bigcrunch="~/vpn.sh UA; xhost +bigcrunch;  ssh michi@bigcrunch"
 
 # I am using tmux as an environment (for both local and remote connections): started up programs and processes will stay in the background upon "detaching" from the session.
 #
 alias tm="~/tm.sh" 
 alias imac="~/vpn.sh UA; ssh michi@imac -t '~/tm.sh'"
-alias mini="~/vpn.sh UA; ssh michele@macmini -t '~/tm.sh'"
+alias mini="~/vpn.sh UA; ssh michele@mini -t '~/tm.sh'"
 alias bigcrunch="~/vpn.sh UA; ssh michi@bigcrunch -t 'source ~/tm.sh'"
+alias castafiore="ssh michele@castafiore"
+alias telstar="~/vpn.sh UA; ssh michi@telstar"
 
 # Copy my public key to the pasteboard
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"

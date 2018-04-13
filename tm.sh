@@ -13,10 +13,15 @@ options=($($TMUXCMD list-sessions -F "#S" 2>/dev/null) "New simple tmux session"
 
 echo " "
 echo "tmux[ctrl-a] manager - welcome to <$(hostname)>!"
-echo "Make your choice:"
+echo "Make your choice (or press return):"
 echo " "
-select opt in "${options[@]}"
-do
+#select opt in "${options[@]}"
+for o in  "${options[@]}"; do
+  echo "$i) $o"
+  let i++
+done
+read opt
+#do
 	case $opt in
 		"New simple tmux session")
 			read -p "Enter new TMUX session name: " SESSION_NAME
@@ -37,12 +42,16 @@ do
 			$TMUXCMD -2 attach-session -d 
 		    break
 		    ;;
-		 "bash-login (no TMUX)")
-			bash --login
-			break;;
-		*)
-			$TMUXCMD attach-session -t $opt
+		 #"bash-login (no TMUX)")
+		 #	bash --login
+		 #	break
+		 #	;;
+		 "")
+		    ($TMUXCMD ls | grep -vq attached && $TMUXCMD -2 at) || $TMUXCMD -2 
 			break
 			;;
+		*)
+		    echo "Invalid choice. Please choose an existing option number."
+			;;
 	esac
-done
+#done
