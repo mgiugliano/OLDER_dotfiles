@@ -10,19 +10,15 @@
 TMUXCMD=/usr/local/bin/tmux
 PS3="?> "
 #options=($($TMUXCMD list-sessions -F "#S" 2>/dev/null) "New simple tmux session" "New advanced tmux session" "New Julia Session" "bash-login (no tmux)")
-options=($($TMUXCMD list-sessions -F "#S" 2>/dev/null) "Default" "New simple tmux session" "New advanced tmux session" "New Julia Session")
+options=($($TMUXCMD list-sessions -F "#S" 2>/dev/null) "New simple tmux session" "New advanced tmux session" "New Julia Session")
 
 echo " "
 echo "tmux[ctrl-a] manager - welcome to <$(hostname)>!"
-echo "Make your choice:"
+echo "Make your choice (or press return):"
 echo " "
 select opt in "${options[@]}"
 do
 	case $opt in
-		"Default")
-			($TMUXCMD ls | grep -vq attached && $TMUXCMD -2 at) || $TMUXCMD -2
-			break
-			;;
 		"New simple tmux session")
 			read -p "Enter new TMUX session name: " SESSION_NAME
 			$TMUXCMD new -s "$SESSION_NAME"
@@ -42,6 +38,10 @@ do
 			$TMUXCMD -2 attach-session -d 
 		    break
 		    ;;
+		 #"bash-login (no TMUX)")
+		 #	bash --login
+		 #	break
+		 #	;;
 		*)
 		    ($TMUXCMD ls | grep -vq attached && $TMUXCMD -2 at) || $TMUXCMD -2	
 			#$TMUXCMD attach-session -t $opt

@@ -26,6 +26,7 @@
 " git clone https://github.com/jistr/vim-nerdtree-tabs.git
 " git clone https://github.com/tpope/vim-repeat
 " git clone https://github.com/svermeulen/vim-easyclip
+" git clone https://github.com/ervandew/supertab
 "------------------------------------------------------------------------------------------------------------
 
 "  If you don't understand a setting in here, just type ':h setting'.
@@ -44,6 +45,7 @@ map <C-C> :.w !pbcopy<CR><CR>
 map <C-P> :r !pbpaste<CR>
 nnoremap  ;  :
 "nnoremap  :  ;
+"nnoremap U <C-R>                  " Redo with U instead of Ctrl+R
 set hidden                        " Allow hidden buffers, don't limit to 1 file per window/split
 set mouse=a"n                     " Enable the mouse but only in normal mode
 set ttymouse=xterm2

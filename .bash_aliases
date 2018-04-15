@@ -79,6 +79,24 @@ alias qfind="find . -name"		#  qfind:    Quickly search for file
 #   -----------------------------------------------------------
 spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
 
+# The command line utility googler was installed with >
+# sudo curl -o /usr/local/bin/googler https://raw.githubusercontent.com/jarun/googler/v3.5/googler && sudo chmod +x /usr/local/bin/googler
+alias google="googler -n 8 -l en -x "
+g() { googler -n 100 -l en -x --np $1 | less; }
+
+# The command line utility wikit was installed with > sudo npm install wikit -g
+alias wikipedia="wikit " 
+
+# MPV Audio Player snippet to RainyMood
+rainymood() { 
+		FILE=$((RANDOM%8)) 
+		URL="https://rainymood.com/audio1110/${FILE}.ogg"
+		mpv "$URL" && rainymood
+}
+
+
+
+
 # Slack integration webhook
 done2slack () { echo "Processing done" | slacktee.sh -a "good" -e "Date and Time" "$(date)" -s "Host" "$(hostname)"; }
 
@@ -121,7 +139,7 @@ alias hosts='sudo vim /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;
 #   -------------------------------------------------------------------
     ii() {
         echo -e "\nYou are logged on ${RED}$HOST"
-        echo -e "\nAdditionnal information:$NC " ; uname -a
+        echo -e "\nAdditional information:$NC " ; uname -a
         echo -e "\n${RED}Users logged on:$NC " ; w -h
         echo -e "\n${RED}Current date :$NC " ; date
         echo -e "\n${RED}Machine stats :$NC " ; uptime
@@ -138,7 +156,7 @@ alias o="open"
 alias f="open -a Finder ./"			# Opens current directory in MacOS Finder
 alias vim="/usr/local/bin/vim"		# brew install vim (the default does not work with clipboard)
 alias vi="/usr/local/bin/vim"		# brew install vim (the default does not work with clipboard)
-alias v="vim"
+alias v="/usr/local/bin/vim"
 alias :w="echo this isn\'t vim 🌟"
 alias :q='exit'
 alias clc="clear"

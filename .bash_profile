@@ -48,7 +48,8 @@ function prompt {
   #export PS2=" | → $RESETCOLOR"
 
  #export PS1="$RED\u$PURPLE@$BLUE\h:$GREEN\W$RESETCOLOR\$ "
- export PS1="$RED\u$PURPLE@$BLUE\W$RESETCOLOR\$ "
+ #export PS1="$RESETCOLOR\A  $RED\u$PURPLE@$BLUE\W$RESETCOLOR\$ "
+ export PS1="$RESETCOLOR\A $(if [ `date +%H` -lt 19 ]; then echo ''; else echo '☽'; fi) $RED\u$PURPLE@$BLUE\W$RESETCOLOR\$ "
 }
 
 prompt
@@ -66,7 +67,7 @@ prompt
 
 #   Set Default Editor (change 'Vim' to the editor of your choice)
 #   ------------------------------------------------------------
-  export EDITOR=/usr/local/bin/vim              # brew install vim  (the default has no clipboard support in OSX)
+export EDITOR=/usr/local/bin/vim              # brew install vim  (the default has no clipboard support in OSX)
   #/usr/bin/vim
 
 # Don’t clear the screen after quitting a manual page
@@ -101,3 +102,6 @@ shopt -s cdspell
 
 # Launches the "z" (jump around folders) command
 source ~/z.sh
+
+# Launches the Message of the Day script
+source ~/.mydotfiles/mymotd.sh
