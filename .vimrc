@@ -21,12 +21,13 @@
 " git clone git://github.com/Raimondi/delimitMate
 " git clone git://github.com/Yggdroot/indentLine
 " git clone git://github.com/sheerun/vim-polyglot
-" git clone git://github.com/ervandew/screen
+" git clone git://github.com/ervandew/screen <------- UNINSTALLED 
 " git clone https://github.com/scrooloose/nerdtree.git
 " git clone https://github.com/jistr/vim-nerdtree-tabs.git
 " git clone https://github.com/tpope/vim-repeat
 " git clone https://github.com/svermeulen/vim-easyclip
 " git clone https://github.com/ervandew/supertab
+" git clone https://github.com/dracula/vim.git
 "------------------------------------------------------------------------------------------------------------
 
 "  If you don't understand a setting in here, just type ':h setting'.

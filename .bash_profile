@@ -101,6 +101,7 @@ export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 shopt -s cdspell
 
 # Launches the "z" (jump around folders) command
+# Requires installing "z.sh" first - https://github.com/rupa/z
 source ~/z.sh
 
 # Launches the Message of the Day script

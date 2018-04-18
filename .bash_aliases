@@ -82,7 +82,7 @@ spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
 # The command line utility googler was installed with >
 # sudo curl -o /usr/local/bin/googler https://raw.githubusercontent.com/jarun/googler/v3.5/googler && sudo chmod +x /usr/local/bin/googler
 alias google="googler -n 8 -l en -x "
-g() { googler -n 100 -l en -x --np $1 | less; }
+g() { googler -n 100 -l en -x --np $1 $2 $3 $4 $5 $6| less; }
 
 # The command line utility wikit was installed with > sudo npm install wikit -g
 alias wikipedia="wikit " 
