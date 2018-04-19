@@ -3,18 +3,11 @@
 #
 # For a full list of active aliases, run `alias`
 
-#echo $'\e[34m'" (l)ls la lsd .. ... .... ..... o ql f v :q clc subl matlab j"   
-#echo " htop path ql ungzip fs diskspace_report ip/2 hosts flushdns"
-#echo " emtpytrash hide/showdesktop hibernateon/off show/hidedotfiles"
-#echo " plot plot1 done2slack spotlight"
-echo
-
 # Enable aliases to be sudo’ed (note the final space character)
 alias sudo="sudo "
 
 # Time to upgrade `ls`
 # ls (standard) lls (long) la (incl. hidden files) lsd (dir only)
-#
 export CLICOLOR=1
 export CLICOLOR_FORCE=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
@@ -39,17 +32,16 @@ alias h='history'
 alias j='jobs -l'
 
 # Easier navigation: .., ...,
-#
-cd() { builtin cd "$@"; ls; }               # Always list directory contents upon 'cd'
+cd() { builtin cd "$@"; ls; }   # Always list directory contents upon 'cd'
 alias cd..="cd .."
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias cwd="cd $CWD"
-alias scwd="export CWD=$(pwd)"
+alias cwd="cd $CWD" 		    # Go back to the current working directory
+alias scwd="export CWD=$(pwd)"  # Set a current working directory
+
 # mv, rm, cp, gunzip
-#
 alias mv='mv -i -v'
 # brew install trash
 alias rm="trash -v"
@@ -64,7 +56,6 @@ ql() { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in Mac
 
 
 # Disc utils and File size
-#
 alias df="df -H"
 alias du="du -sh"
 alias diskspace_report="df -P -kHl"
@@ -73,18 +64,16 @@ alias fs="stat -f \"%z bytes\""
 alias numfiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden files in current dir
 
 # Searching utilities
-#
 alias qfind="find . -name"		#  qfind:    Quickly search for file
+
 #   spotlight: Search for a file using MacOS Spotlight's metadata
-#   -----------------------------------------------------------
 spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
 
-# The command line utility googler was installed with >
-# sudo curl -o /usr/local/bin/googler https://raw.githubusercontent.com/jarun/googler/v3.5/googler && sudo chmod +x /usr/local/bin/googler
+# Googler
 alias google="googler -n 8 -l en -x "
 g() { googler -n 100 -l en -x --np $1 $2 $3 $4 $5 $6| less; }
 
-# The command line utility wikit was installed with > sudo npm install wikit -g
+# Wikit
 alias wikipedia="wikit " 
 
 # MPV Audio Player snippet to RainyMood
@@ -93,8 +82,6 @@ rainymood() {
 		URL="https://rainymood.com/audio1110/${FILE}.ogg"
 		mpv "$URL" && rainymood
 }
-
-
 
 
 # Slack integration webhook
@@ -117,21 +104,17 @@ pmid2bib() {
  echo "Appended to bib.bib"
 }
 
-
 # SSH Tunnel to acces the lab wiki
 wiki() { ssh -fN -L 10000:telstar:80 michele@castafiore ; }
 
 # Networking. IP address, dig, DNS, Enhanced WHOIS lookups
-#
 alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"
 alias ip2="dig +short myip.opendns.com @resolver1.opendns.com"
 alias dig="dig +nocmd any +multiline +noall +answer"
 alias whois="whois -h whois-servers.net"
 alias flushdns="dscacheutil -flushcache"
 
-
 # Be nice (brew install htop)
-#
 alias htop='sudo htop'
 alias hosts='sudo vim /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
@@ -149,9 +132,7 @@ alias hosts='sudo vim /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;
         echo
     }
 
-
 # Shortcuts
-#
 alias o="open"
 alias f="open -a Finder ./"			# Opens current directory in MacOS Finder
 alias vim="/usr/local/bin/vim"		# brew install vim (the default does not work with clipboard)
@@ -176,10 +157,6 @@ alias qneurojupyter='docker stop myneurojupyter && docker rm myneurojupyter'
 #plot() { gnuplot -e "set terminal png; plot '$@' using 1:2 with line" | imgcat; }
 plot() { gnuplot -persist -e "set terminal x11; plot '$@' using 1:2 with line"; } 
 plot1() { gnuplot -persist -e "set terminal x11; plot '$@' with line"; } 
-
-#alias imac="~/vpn.sh UA; xhost +imac;  ssh michi@imac"
-#alias mini="~/vpn.sh UA; xhost +mini;  ssh michele@mini"
-#alias bigcrunch="~/vpn.sh UA; xhost +bigcrunch;  ssh michi@bigcrunch"
 
 # I am using tmux as an environment (for both local and remote connections): started up programs and processes will stay in the background upon "detaching" from the session.
 #

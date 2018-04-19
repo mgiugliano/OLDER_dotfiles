@@ -1,16 +1,9 @@
 # ~/.bash_profile
 
-#
 #  bash_profile of Michele Giugliano (mgiugliano@gmail.com), 3/1/2018
 #  ---------------------------------------------------------------------------
 #  Description: BASH configurations and aliases
 #  ---------------------------------------------------------------------------
-#
-
-defaults write NSGlobalDomain _HIHideMenuBar -bool true
-# restore by: defaults write NSGlobalDomain _HIHideMenuBar -bool false
-defaults write com.apple.dock autohide-time-modifier -float 0.25;killall Dock
-# restore by: defaults delete com.apple.dock autohide-time-modifier;killall Dock
 
 [[ -s ~/.bashrc ]] && source ~/.bashrc
 
@@ -19,8 +12,6 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 #   Change Prompt
-#   ------------------------------------------------------------
-
 function prompt {
   local BLACK="\[\033[0;30m\]"
   local BLACKBOLD="\[\033[1;30m\]"
@@ -55,8 +46,6 @@ function prompt {
 prompt
 
 #   Set Paths
-#   ------------------------------------------------------------
-
   export PATH="$PATH:/usr/local/bin/"
   export PATH="$PATH:/Applications/Julia-0.6.app/Contents/Resources/julia/bin"  #added for Julia
   export PATH="$PATH:/Applications/NEURON-7.5/nrn/x86_64/bin"                   #added by NEURON installer
@@ -66,7 +55,6 @@ prompt
   export PATH="$PATH:/Users/michi/anaconda/bin"                     # added by Anaconda3 4.3.1 installer
 
 #   Set Default Editor (change 'Vim' to the editor of your choice)
-#   ------------------------------------------------------------
 export EDITOR=/usr/local/bin/vim              # brew install vim  (the default has no clipboard support in OSX)
   #/usr/bin/vim
 

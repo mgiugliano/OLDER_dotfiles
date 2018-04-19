@@ -32,11 +32,16 @@
 
 "  If you don't understand a setting in here, just type ':h setting'.
 " This must be first, because it changes other options as a side effect.
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
 set nocompatible                  " Use Vim settings, rather than Vi settings (much better!).
 set backspace=indent,eol,start    " Make backspace behave in a sane manner.
 set ruler
 "set nonumber
-set number
+set number relativenumber   	  " Hybdrid mode of line numbering 
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 syntax on                         " Switch syntax highlighting on
 filetype plugin indent on         " Enable file type detection and do language-dependent indenting.
