@@ -1,6 +1,6 @@
 # ~/.bash_profile
 
-#  bash_profile of Michele Giugliano (mgiugliano@gmail.com), 3/1/2018
+#  bash_profile of Michele Giugliano, 20/4/2018
 #  ---------------------------------------------------------------------------
 #  Description: BASH configurations and aliases
 #  ---------------------------------------------------------------------------
