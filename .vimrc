@@ -28,7 +28,8 @@
 " git clone https://github.com/svermeulen/vim-easyclip
 " git clone https://github.com/ervandew/supertab
 " git clone https://github.com/dracula/vim.git
-"------------------------------------------------------------------------------------------------------------
+" git clone https://github.com/junegunn/goyo.vim
+" ------------------------------------------------------------------------------------------------------------
 
 "  If you don't understand a setting in here, just type ':h setting'.
 " This must be first, because it changes other options as a side effect.
@@ -46,7 +47,10 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 syntax on                         " Switch syntax highlighting on
 filetype plugin indent on         " Enable file type detection and do language-dependent indenting.
 "set number                        " Show line numbers
-set clipboard=unnamed			   " Integration with OSX copy/paste 
+if $TMUX == ''
+    set clipboard+=unnamed
+endif
+"set clipboard=unnamed			   " Integration with OSX copy/paste 
 map <C-C> :.w !pbcopy<CR><CR>
 map <C-P> :r !pbpaste<CR>
 nnoremap  ;  :
@@ -97,7 +101,8 @@ set titlestring=%F
 "highlight ColorColumn ctermbg=black				" Outline the character at column 81
 "call matchadd('ColorColumn', '\%81v', 100)		" with a different color (altering on col>80)
 
-
+autocmd BufRead,BufNewFile *.md setlocal spell    "Spell check if the file type is *.md or *.txt
+autocmd BufRead,BufNewFile *.txt setlocal spell
 
 execute pathogen#infect()
 
@@ -118,3 +123,38 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 color dracula
+
+function! s:goyo_enter()
+  let b:quitting = 0
+  let b:quitting_bang = 0
+  autocmd QuitPre <buffer> let b:quitting = 1
+  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  "Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+" Quit Vim if this is the only remaining buffer
+   if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+       if b:quitting_bang
+             qa!
+       else
+             qa
+        endif
+  endif
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  set showmode
+  set showcmd
+  set scrolloff=5
+  "Limelight!
+  " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()

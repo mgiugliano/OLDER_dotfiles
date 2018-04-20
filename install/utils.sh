@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Download "z", "jump around"
 curl -O https://raw.githubusercontent.com/rupa/z/z.sh

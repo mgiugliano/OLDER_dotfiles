@@ -46,7 +46,9 @@ function prompt {
 prompt
 
 #   Set Paths
-  export PATH="$PATH:/usr/local/bin/"
+
+  export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
+  export PATH="$PATH:/Library/TeX/texbin"
   export PATH="$PATH:/Applications/Julia-0.6.app/Contents/Resources/julia/bin"  #added for Julia
   export PATH="$PATH:/Applications/NEURON-7.5/nrn/x86_64/bin"                   #added by NEURON installer
   export PATH="$PATH:/opt/X11/bin"

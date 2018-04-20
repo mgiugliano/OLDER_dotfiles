@@ -10,7 +10,7 @@
 TMUXCMD=/usr/local/bin/tmux
 PS3="?> "
 #options=($($TMUXCMD list-sessions -F "#S" 2>/dev/null) "New simple tmux session" "New advanced tmux session" "New Julia Session" "bash-login (no tmux)")
-options=($($TMUXCMD list-sessions -F "#S" 2>/dev/null) "Default" "New simple tmux session" "New advanced tmux session" "New Julia Session")
+options=($($TMUXCMD list-sessions -F "#S" 2>/dev/null) "Default" "New simple tmux session" "New advanced tmux session" "New Julia Session" "New MATLAB Session")
 
 echo " "
 echo "tmux[ctrl-a] manager - welcome to <$(hostname)>!"
@@ -40,6 +40,13 @@ do
 		    $TMUXCMD new -s "$SESSION_NAME" -d 'vim'
 			$TMUXCMD split-window -h 'julia'
 			$TMUXCMD -2 attach-session -d 
+		    break
+		    ;;
+		 "New MATLAB Session")
+		    read -p "Enter new session name: " SESSION_NAME
+		    $TMUXCMD new -s "$SESSION_NAME" -d 'vim'
+			$TMUXCMD split-window -h '/Applications/MATLAB_R2018a.app/bin/matlab -nodesktop -nosplash'
+			$TMUXCMD -2 attach-session -d
 		    break
 		    ;;
 		*)

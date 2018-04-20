@@ -9,7 +9,13 @@ echo -e "\\n\\nInstalling homebrew packages..."
 echo "=============================="
 
 formulas=(
-    git
+    csvkit
+    jq
+    pandoc-crossref 
+	pandoc-citeproc
+    pandoc
+    reattach-to-user-namespace
+	git
     'grep --with-default-names'
     #markdown
     node
