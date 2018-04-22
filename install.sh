@@ -20,4 +20,7 @@ fi
 #echo "creating vim directories"
 #mkdir -p ~/.vim-tmp
 
+source install/vim_plugins.sh
+source install/utils.sh
+
 echo "Done. Reload your terminal."

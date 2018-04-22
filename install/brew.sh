@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
+echo "It is advisable first to remove Anaconda from the PATH and then install brew..."
+read -p "Press ENTER to continue" -n 1 -r
+
 if test ! "$( which brew )"; then
     echo "Installing homebrew"
     ruby -e "$( curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install )"
 fi
 
 echo -e "\\n\\nInstalling homebrew packages..."
-echo "=============================="
+echo "========================================"
 
 formulas=(
+    caskformula/caskformula/inkscape
+    caskroom/cask/gimp
     csvkit
     jq
     pandoc-crossref 
@@ -25,7 +30,7 @@ formulas=(
     wget
     vim
     mas
-    chunkwm
+    crisidev/homebrew-chunkwm/chunkwm
     colordiff
     fortune
     htop
@@ -37,7 +42,7 @@ formulas=(
     node
     openssl
     python3
-    skhd
+    koekeishiya/formulae/skhd 
     trash
     tree
     vim
@@ -52,3 +57,5 @@ for formula in "${formulas[@]}"; do
     fi
 done
 
+brew services start skhd
+brew services start chunkwm

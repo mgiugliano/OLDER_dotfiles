@@ -5,16 +5,18 @@ DOTFILES=$HOME/.mydotfiles
 echo -e "\\nCreating symlinks"
 echo "=============================="
 
-ln -s .mydotfiles/tm.sh tm.sh
-ln -s .mydotfiles/z.sh z.sh
-ln -s .mydotfiles/tm.sh tm.sh
-ln -s .mydotfiles/.vimrc .vimrc
-ln -s .mydotfiles/.tmux.conf .tmux.conf
-ln -s .mydotfiles/.skhdrc .skhdrc
-ln -s .mydotfiles/.juliarc.jl .juliarc.jl
-ln -s .mydotfiles/.iterm2_shell_integration.bash .iterm2_shell_integration.bash
-ln -s .mydotfiles/.condarc .condarc
-ln -s .mydotfiles/.chunkwmrc .chunkwmrc
-ln -s .mydotfiles/.bash_profile .bash_profile
-ln -s .mydotfiles/.bash_aliases .bash_aliases
+ln -s $DOTFILES/tm.sh tm.sh
+ln -s $DOTFILES/z.sh z.sh
+ln -s $DOTFILES/tm.sh tm.sh
+ln -s $DOTFILES/.vimrc .vimrc
+ln -s $DOTFILES/.tmux.conf .tmux.conf
+ln -s $DOTFILES/.skhdrc .skhdrc
+ln -s $DOTFILES/.juliarc.jl .juliarc.jl
+ln -s $DOTFILES/.iterm2_shell_integration.bash .iterm2_shell_integration.bash
+ln -s $DOTFILES/.condarc .condarc
+ln -s $DOTFILES/.chunkwmrc .chunkwmrc
+ln -s $DOTFILES/.bash_profile .bash_profile
+ln -s $DOTFILES/.bash_aliases .bash_aliases
+ln -s $DOTFILES/.condarc .condarc
 
+echo "iTerm2 must be pointed to search the config at $DOTFILES"

@@ -9,4 +9,11 @@ sudo chmod +x /usr/local/bin/googler
 
 npm install wikit -g
 
+# Download and installs "PubMed Utils"
+
+# Download scihub2pdf
+#sudo pip install scihub2pdf
+#npm install -g phantomjs
+
+#sudo pip install bibcure
 

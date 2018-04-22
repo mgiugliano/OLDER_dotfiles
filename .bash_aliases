@@ -76,6 +76,10 @@ g() { googler -n 100 -l en -x --np $1 $2 $3 $4 $5 $6| less; }
 # Wikit
 alias wikipedia="wikit " 
 
+# VimWiki
+wikimd() { $EDITOR /Users/michi/Dropbox/Pvt/a_private.wiki/index.md ;}
+wikibib() { $EDITOR /Users/michi/Dropbox/Pro/BibTex/wiki/index.md ;}
+
 # MPV Audio Player snippet to RainyMood
 rainymood() { 
 		FILE=$((RANDOM%8)) 
@@ -88,24 +92,34 @@ rainymood() {
 done2slack () { echo "Processing done" | slacktee.sh -a "good" -e "Date and Time" "$(date)" -s "Host" "$(hostname)"; }
 
 # Academic writing tips
+pandocme() {
+ echo "Processing $1..."
+ pandoc -V geometry="paperwidth=21cm, paperheight=29.7cm, margin=2.54cm" --bibliography=/Users/michi/Dropbox/Pro/BibTex/bib.bib --csl=/Users/michi/Dropbox/Pro/BibTex/csl_style/european-journal-of-neuroscience.csl $1 -o $1.pdf
+ pandoc -V geometry="paperwidth=21cm, paperheight=29.7cm, margin=2.54cm" --bibliography=/Users/michi/Dropbox/Pro/BibTex/bib.bib --csl=/Users/michi/Dropbox/Pro/BibTex/csl_style/european-journal-of-neuroscience.csl --reference-doc=/Users/michi/Dropbox/Pro/BibTex/templates/manuscript-docx.docx $1 -o $1.docx
+}
+
 doi2bib() {
  echo "Searching $1..."
- echo >> bib.bib
- curl -s "http://api.crossref.org/works/$1/transform/application/x-bibtex" >> bib.bib;
- echo >> bib.bib
+ echo >> /Users/michi/Dropbox/Pro/BibTex/bib.bib
+ curl -s "http://api.crossref.org/works/$1/transform/application/x-bibtex" >> /Users/michi/Dropbox/Pro/BibTex/bib.bib;
+ echo >> /Users/michi/Dropbox/Pro/BibTex/bib.bib
  echo "Appended to bib.bib"
 }
 
 pmid2bib() {
  echo "Searching $1..."
- echo >> bib.bib
- curl -s "http://www.bioinformatics.org/texmed/cgi-bin/list.cgi?PMID=$1" | tail -n +15 | sed '$d' | sed '$d' | sed '$d' | sed '$d' >> bib.bib
- echo >> bib.bib
+ echo >> /Users/michi/Dropbox/Pro/BibTex/bib.bib
+ curl -s "http://www.bioinformatics.org/texmed/cgi-bin/list.cgi?PMID=$1" | tail -n +15 | sed '$d' | sed '$d' | sed '$d' | sed '$d' >> /Users/michi/Dropbox/Pro/BibTex/bib.bib;
+ echo >> /Users/michi/Dropbox/Pro/BibTex/bib.bib
  echo "Appended to bib.bib"
 }
 
+pubmed() {
+ esearch -db pubmed -query "$1"  | efetch -format medline | grep -e 'PMID- ' -e 'TI' -e 'LID'
+ }
+ 
 # SSH Tunnel to acces the lab wiki
-wiki() { ssh -fN -L 10000:telstar:80 michele@castafiore ; }
+tunnel() { ssh -fN -L 10000:telstar:80 michele@castafiore ; }
 
 # Networking. IP address, dig, DNS, Enhanced WHOIS lookups
 alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"

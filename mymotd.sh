@@ -16,15 +16,15 @@ bold=$(tput bold)$(tput setaf 4)
 echo
 echo "${bold}Shell    :${normal} (l)ls, la, lsd, cd.., .., ..., ...., ....."
 echo "           qfind, o, ql, f, v, :q, clc, h, z" 
-echo "${bold}Network  :${normal} wiki, castafiore, telstar, imac, mini, bigcrunch"
+echo "${bold}Network  :${normal} tunnel, castafiore, telstar, imac, mini, bigcrunch"
 echo "           hosts, ip/2, flushdns, pubkey" 
 echo "${bold}Utils    :${normal} emptytrash, hide/showdesktop, hibernateon/off"
 echo "           show/hidedotfiles, done2slack"
 echo "${bold}System   :${normal} diskspace_report, htop, ungzip, fs"
-echo "${bold}Search   :${normal} spotlight, google, g, wikipedia" 
+echo "${bold}Search   :${normal} spotlight, google, g, wikipedia, wikibib, wikimd" 
 echo "${bold}App      :${normal} matlab, subl (s), j, plot, plot1, cws, cwp, rainymood"
 echo "           brew_update, q/neurojupyter, rainymood"
-echo "${bold}Bib      :${normal} doi2bib, pbmid2bib"
+echo "${bold}Bib      :${normal} doi2bib, pbmid2bib, pubmed, pandocme"
 echo
 normal=$(tput sgr0)
 echo "${normal} $(fortune)"
