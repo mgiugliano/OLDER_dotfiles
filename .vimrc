@@ -1,11 +1,11 @@
-"  Michele Giugliano’s vimrc file - Apr 21th 2018
+"  Michele Giuglano’s vimrc file - May 5th 2018
 "
 " Note: install vim via brew, as the default vim under macOS
 "       does NOT have the clipboard integration with the os working.
 "------------------------------------------------------------------------------------------------------------
-
 " type ':h setting' to learn about individual settings
 " This must be first, because it changes other options as a side effect.
+
 
 " remap leader from \ to ,
 let mapleader = ","
@@ -17,37 +17,90 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 " Copy and Paste (macOs)
-"map <C-C> :.w !pbcopy<CR><CR>
-"map <C-P> :r !pbpaste<CR>
+map <C-C> :.w !pbcopy<CR><CR>
+map <C-P> :r !pbpaste<CR>
 
 " Navigate through buffers (visiting 'next' one)
-:nnoremap <C-B> :bnext<CR>
-
+nnoremap <C-B> :bnext<CR>
 
 " Remap ; to :, so that pressing SHIFT becomes an option when e.g. :w, :q!
 nnoremap  ;  :
 "nnoremap  :  ;
+
 " Remap Ctrl+R (redo) to U (although loosing the 'restore line' function)
 "nnoremap U <C-R>
 
+" Remap some very frequent command to write, quit, and wite&quit
+nnoremap <leader>w :w<CR>
+nnoremap <leader>z :wq!<CR>
+nnoremap <leader>q :q!<CR>
+vnoremap <leader>q <esc>:q!<CR>
+
 set nocompatible                  " Use Vim settings, rather than Vi settings (much better!).
+set autoread 					  " Automatically reload file, if content changed externally
 set backspace=indent,eol,start    " Make backspace behave in a sane manner.
 set ruler 						  " Show current line and column number in the status bar
 set number relativenumber   	  " Hybdrid mode of line numbering: current line and relative nums to it
-
 set autoindent 					  " new line with same indentation
 set smartindent 				  " http://superuser.com/questions/9974
+set hidden                        " Allow hidden buffers, don't limit to 1 file per window/split
+set mouse=a"n                     " Enable the mouse but only in normal mode
+set ttymouse=xterm2               " Improved xterm mouse handling
+set cursorline                    " highlight current line
+"set cursorcolumn 				   " highlight current column
+set showcmd                       " show command in bottom bar
+set cmdheight=1                   " Number of screen lines to use for the command-line  
+set shell=/bin/bash               " Command to start a shell
+set showmatch                     " highlight matching [{()}]
+set wildmenu                      " visual autocomplete for command menu
+set wildchar=<Tab> wildmenu wildmode=full
+set incsearch                     " search as characters are entered
+"set hlsearch                      " highlight ALL matches
+set nohlsearch                    " Does NOT highlight all matches 
+set ignorecase smartcase          " case-sensitive only if they contain upper-case chars
+set path+=**                      " List of directories to search 
+
+"" Directories for swp files
+"set nobackup
+set backup
+set backupdir=~/tmp
+set noswapfile
+
+set fileformats=unix,dos,mac
+set tabstop=4                     	" number of visual spaces per TAB
+"set softtabstop=4                 	" number of spaces in tab when editing
+"set expandtab                     	" tabs are spaces
+filetype indent on      			" load filetype-specific indent files
+set wrap                			" Always wrap long lines:
+set list 							" Turns on option to highlight specific chars below
+set listchars=tab:▸\    			" was: set listchars=tab:▸\ ,eol:¬
+
+"" Encoding
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
+set bomb
+set binary
+set ttyfast
+
+"" Use modeline overrides
+set modeline
+set modelines=10
+set title
+set titleold="Terminal"
+set titlestring=%F
 
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 syntax on                         " Switch syntax highlighting on
 filetype plugin on
 filetype plugin indent on         " Enable file type detection and do language-dependent indenting.
+"------------------------------------------------------------------------------------------------------------
 
-if $TMUX == ''
+"if $TMUX == ''
     set clipboard+=unnamed 		  " Make the yank/paste working in vim within a TMUX session too
-endif 							  " the option 'unnamed' makes it working with OSX copy/paste
+"endif 							  " the option 'unnamed' makes it working with OSX copy/paste
 
-" vimwiki with markdown support
+" vimwiki with markdown support ------------------------------------------------------------------------------
 let g:vimwiki_ext2syntax = {'.md': 'markdown',
                   \ '.mkd': 'markdown',
                   \ '.wiki': 'media'}
@@ -68,59 +121,29 @@ let g:vimwiki_list = [wiki_1, wiki_2]
 
 "au BufRead,BufNewFile *.wiki set filetype=vimwiki
 
+"------------------------------------------------------------------------------------------------------------
+
 " vim-instant-markdown: Instant Previews from Vim (disable autostart)
 let g:instant_markdown_autostart = 0 
 map <leader>md :InstantMarkdownPreview<CR>
 
-set hidden                        " Allow hidden buffers, don't limit to 1 file per window/split
-set mouse=a"n                     " Enable the mouse but only in normal mode
-set ttymouse=xterm2
-set cursorline                    " highlight current line
-"set cursorcolumn 				   " highlight current column
-set showcmd                       " show command in bottom bar
-set cmdheight=1
-set shell=/bin/bash
-set showmatch                     " highlight matching [{()}]
-set wildmenu                      " visual autocomplete for command menu
-set wildchar=<Tab> wildmenu wildmode=full
-set incsearch                     " search as characters are entered
-set hlsearch                      " highlight matches
-set ignorecase smartcase          " case-sensitive only if they contain upper-case chars
-set path+=**
-"" Directories for swp files
-set nobackup
-set noswapfile
+"------------------------------------------------------------------------------------------------------------
 
-set fileformats=unix,dos,mac
-set tabstop=4                     " number of visual spaces per TAB
-"set softtabstop=4                 " number of spaces in tab when editing
-"set expandtab                     " tabs are spaces
-filetype indent on      " load filetype-specific indent files
-set wrap                " Always wrap long lines:
+"" Highlighting column 81 (https://youtu.be/aHm36-na4-4 Damian Conway)
+highlight ColorColumn ctermbg=black				" Outline the character at column 81
+call matchadd('ColorColumn', '\%81v', 100)		" with a different color (altering on col>80)
 
-"" Encoding
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8
-set bomb
-set binary
-set ttyfast
-
-"" Use modeline overrides
-set modeline
-set modelines=10
-set title
-set titleold="Terminal"
-set titlestring=%F
-
-"" Highlighting column 81
-"highlight ColorColumn ctermbg=black				" Outline the character at column 81
-"call matchadd('ColorColumn', '\%81v', 100)		" with a different color (altering on col>80)
+"------------------------------------------------------------------------------------------------------------
 
 autocmd BufRead,BufNewFile *.md setlocal spell    "Spell check if the file type is *.md or *.txt
 autocmd BufRead,BufNewFile *.txt setlocal spell
+set spelllang=en_us,it
+
+"------------------------------------------------------------------------------------------------------------
 
 execute pathogen#infect()
+
+color dracula 
 
 " vim-airline
 let g:airline_theme = 'powerlineish'
@@ -137,8 +160,6 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-color dracula
 
 function! s:goyo_enter()
   let b:quitting = 0
@@ -174,3 +195,52 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+"------------------------------------------------------------------------------------------------------------
+
+" Greek and Math charatcters
+map! <C-v>G Γ
+map! <C-v>D Δ
+map! <C-v>T Θ
+map! <C-v>L Λ
+map! <C-v>X Ξ
+map! <C-v>P Π
+map! <C-v>S Σ
+map! <C-v>F Φ
+map! <C-v>P Ψ
+map! <C-v>O Ω
+
+map! <C-v>a α
+map! <C-v>b β
+map! <C-v>g γ
+map! <C-v>d δ
+map! <C-v>e ε
+map! <C-v>z ζ
+map! <C-v>e η
+map! <C-v>t θ
+map! <C-v>i ι
+map! <C-v>k κ
+map! <C-v>l λ
+map! <C-v>m μ
+map! <C-v>x ξ
+map! <C-v>p π
+map! <C-v>r ρ
+map! <C-v>s σ
+map! <C-v>t τ
+map! <C-v>p ψ
+map! <C-v>o ω
+map! <C-v>f ϕ
+map! <C-v>n ν
+
+map! <C-v>ll →
+map! <C-v>hh ⇌
+map! <C-v>kk ↑
+map! <C-v>jj ↓
+map! <C-v>= ∝
+map! <C-v>~ ≈
+map! <C-v>!= ≠
+map! <C-v>>= ≥
+map! <C-v><= ≤
+map! <C-v>0  °
+map! <C-v>*  •
+map! <C-v>co ⌘

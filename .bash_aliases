@@ -1,11 +1,14 @@
 #
 # Set personal aliases
 #
+# Inspiration from: https://github.com/ohmybash/oh-my-bash/blob/master/aliases/general.aliases.sh
+#
 # For a full list of active aliases, run `alias`
 
-# Enable aliases to be sudo’ed (note the final space character)
-alias sudo="sudo "
-
+#  -----------------------------
+#   MAKE TERMINAL BETTER
+#  -----------------------------
+alias sudo="sudo " # Enable aliases to be sudo’ed (note the final space character)
 # Time to upgrade `ls`
 # ls (standard) lls (long) la (incl. hidden files) lsd (dir only)
 export CLICOLOR=1
@@ -24,9 +27,6 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-# Diff with colorized output (run brew install colordiff)
-alias diff='colordiff'
-
 # History and background jobs
 alias h='history'
 alias j='jobs -l'
@@ -42,18 +42,15 @@ alias cwd="cd $CWD" 		    # Go back to the current working directory
 alias scwd="export CWD=$(pwd)"  # Set a current working directory
 
 # mv, rm, cp, gunzip
-alias mv='mv -i -v'
-# brew install trash
-alias rm="trash -v"
-#alias rm='rm -i -v'
-alias cp='cp -v'
-alias mkdir='mkdir -pv'                    # Preferred 'mkdir' implementation (creates parent dirs on demand)
-alias less='less -FRXc'                    # Preferred 'less' implementation
+alias cp='cp -iv'                           # Preferred 'cp' implementation
+alias mv='mv -iv'                           # Preferred 'mv' implementation
+alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
+alias less='less -FSRXc'                    # Preferred 'less' implementation
+alias wget='wget -c'                        # Preferred 'wget' implementation (resume download)
+
 alias ungzip="gunzip -k"
 alias which='type -all'                     # which:        Find executables
 alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
-ql() { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
-
 
 # Disc utils and File size
 alias df="df -H"
@@ -63,25 +60,59 @@ alias free_diskspace_report="diskspace_report"
 alias fs="stat -f \"%z bytes\""
 alias numfiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden files in current dir
 
-# Searching utilities
-alias qfind="find . -name"		#  qfind:    Quickly search for file
+# Shortcuts
+alias vim="/usr/local/bin/vim"		# brew install vim (the default does not work with clipboard)
+alias vi="/usr/local/bin/vim"		# brew install vim (the default does not work with clipboard)
+alias v="/usr/local/bin/vim"
+alias :w="echo this isn\'t vim 🌟"
+alias :q='exit'
+alias clc="clear"
+alias c='clear'                             # c:            Clear terminal display
+alias ~="cd ~"                              # ~:            Go Home
+#alias ps="ps -ax"
 
-#   spotlight: Search for a file using MacOS Spotlight's metadata
-spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
+#   ---------------------------
+#   macOs SPECIFIC
+#   ---------------------------
+ql() { qlmanage -p "$*" >& /dev/null; }    # ql: Opens any file in MacOS Quicklook Preview
+spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; } # spotlight-search for a file, using MacOS Spotlight's metadata
+#alias rm='rm -i -v'                 		# Preferred 'rm' implementation
+alias rm="trash -v" 						# brew install trash
+alias emptytrash='trash -e' 				# Empty the Trash on all mounted volumes and the main HDD.
+alias diff='colordiff'						# with colorized output (run brew install colordiff)
+alias o="open"								# Opens file with default MacOS application
+alias f="open -a Finder ./"					# Opens current directory in MacOS Finder
+alias hibernateon="sudo pmset -a hibernatemode 5"	# Enable hibernation
+alias hibernateoff="sudo pmset -a hibernatemode 0"
+# Show/hide hidden files in Finder
+alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+# Show/hide all desktop icons (useful when presenting)
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+# Update installed Homebrew, and their installed packages
+alias brew_update="brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew prune; brew doctor"
 
-# Googler
-alias google="googler -n 8 -l en -x "
+
+#   ---------------------------
+#   SEARCHING UTILITIES
+#   ---------------------------
+alias qfind="find . -name"				#  qfind:    Quickly search for file
+alias google="googler -n 8 -l en -x " 	# Googler
 g() { googler -n 100 -l en -x --np $1 $2 $3 $4 $5 $6| less; }
+alias wikipedia="wikit " 				# Wikit
 
-# Wikit
-alias wikipedia="wikit " 
 
-# VimWiki
+#   ---------------------------
+#   Personal VimWikis
+#   ---------------------------
 wikimd() { $EDITOR /Users/michi/Dropbox/Pvt/a_private.wiki/index.md ;}
 wikibib() { $EDITOR /Users/michi/Dropbox/Pro/BibTex/wiki/index.md ;}
 
-# MPV Audio Player snippet to RainyMood
-rainymood() { 
+#   ---------------------------
+#   Background rainy sounds
+#   ---------------------------
+rainymood() { # MPV Audio Player snippet to RainyMood
 		FILE=$((RANDOM%8)) 
 		URL="https://rainymood.com/audio1110/${FILE}.ogg"
 		mpv "$URL" && rainymood
@@ -91,11 +122,18 @@ rainymood() {
 # Slack integration webhook
 done2slack () { echo "Processing done" | slacktee.sh -a "good" -e "Date and Time" "$(date)" -s "Host" "$(hostname)"; }
 
-# Academic writing tips
+#   ---------------------------
+#   ACADEMIC WRITING TOOLS
+#   ---------------------------
 pandocme() {
  echo "Processing $1..."
  pandoc -V geometry="paperwidth=21cm, paperheight=29.7cm, margin=2.54cm" --bibliography=/Users/michi/Dropbox/Pro/BibTex/bib.bib --csl=/Users/michi/Dropbox/Pro/BibTex/csl_style/european-journal-of-neuroscience.csl $1 -o $1.pdf
  pandoc -V geometry="paperwidth=21cm, paperheight=29.7cm, margin=2.54cm" --bibliography=/Users/michi/Dropbox/Pro/BibTex/bib.bib --csl=/Users/michi/Dropbox/Pro/BibTex/csl_style/european-journal-of-neuroscience.csl --reference-doc=/Users/michi/Dropbox/Pro/BibTex/templates/manuscript-docx.docx $1 -o $1.docx
+}
+
+doigrep() {
+ [ $# -ge 1 -a -f "$1" ] && input="$1" || input="-"
+ grep -oP "\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![\"&\'<>])\S)+)\b" "$input"
 }
 
 doi2bib() {
@@ -117,9 +155,14 @@ pmid2bib() {
 pubmed() {
  esearch -db pubmed -query "$1"  | efetch -format medline | grep -e 'PMID- ' -e 'TI' -e 'LID'
  }
- 
-# SSH Tunnel to acces the lab wiki
-tunnel() { ssh -fN -L 10000:telstar:80 michele@castafiore ; }
+
+pdf2doi() {
+    pdftotext "$1" - | doigrep | while read doi; do doi2bib "$doi"; done
+}
+#   ---------------------------
+#   NETWORK
+#   ---------------------------
+tunnel() { ssh -fN -L 10000:telstar:80 michele@castafiore ; } # SSH Tunnel to acces the lab wiki
 
 # Networking. IP address, dig, DNS, Enhanced WHOIS lookups
 alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"
@@ -127,10 +170,19 @@ alias ip2="dig +short myip.opendns.com @resolver1.opendns.com"
 alias dig="dig +nocmd any +multiline +noall +answer"
 alias whois="whois -h whois-servers.net"
 alias flushdns="dscacheutil -flushcache"
-
-# Be nice (brew install htop)
-alias htop='sudo htop'
 alias hosts='sudo vim /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
+# I am using tmux as an environment (for both local and remote connections): 
+# started up programs and processes will stay in the background upon "detaching" from the session.
+alias tm="~/tm.sh" 
+# Copy my public key to the pasteboard
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
+alias imac="~/vpn.sh UA; ssh michi@imac -t '~/tm.sh'"
+alias mini="~/vpn.sh UA; ssh michele@mini -t '~/tm.sh'"
+alias bigcrunch="~/vpn.sh UA; ssh michi@bigcrunch -t 'source ~/tm.sh'"
+alias castafiore="ssh michele@castafiore"
+alias telstar="~/vpn.sh UA; ssh michi@telstar"
+
+alias htop='sudo htop'				# Be nice (brew install htop)
 
 #   ii:  display useful host related informaton
 #   -------------------------------------------------------------------
@@ -146,16 +198,9 @@ alias hosts='sudo vim /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;
         echo
     }
 
-# Shortcuts
-alias o="open"
-alias f="open -a Finder ./"			# Opens current directory in MacOS Finder
-alias vim="/usr/local/bin/vim"		# brew install vim (the default does not work with clipboard)
-alias vi="/usr/local/bin/vim"		# brew install vim (the default does not work with clipboard)
-alias v="/usr/local/bin/vim"
-alias :w="echo this isn\'t vim 🌟"
-alias :q='exit'
-alias clc="clear"
-#alias ps="ps -ax"
+#   ---------------------------
+#   APPLICATIONS SHORTCUTS
+#   ---------------------------
 
 # Open specified files in Sublime Text
 # "s ." will open the current directory in Sublime
@@ -172,33 +217,6 @@ alias qneurojupyter='docker stop myneurojupyter && docker rm myneurojupyter'
 plot() { gnuplot -persist -e "set terminal x11; plot '$@' using 1:2 with line"; } 
 plot1() { gnuplot -persist -e "set terminal x11; plot '$@' with line"; } 
 
-# I am using tmux as an environment (for both local and remote connections): started up programs and processes will stay in the background upon "detaching" from the session.
-#
-alias tm="~/tm.sh" 
-alias imac="~/vpn.sh UA; ssh michi@imac -t '~/tm.sh'"
-alias mini="~/vpn.sh UA; ssh michele@mini -t '~/tm.sh'"
-alias bigcrunch="~/vpn.sh UA; ssh michi@bigcrunch -t 'source ~/tm.sh'"
-alias castafiore="ssh michele@castafiore"
-alias telstar="~/vpn.sh UA; ssh michi@telstar"
 
-# Copy my public key to the pasteboard
-alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
 
-# Enable hibernation
-alias hibernateon="sudo pmset -a hibernatemode 5"
-alias hibernateoff="sudo pmset -a hibernatemode 0"
-
-# Show/hide hidden files in Finder
-alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
-# Show/hide all desktop icons (useful when presenting)
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-
-# Empty the Trash on all mounted volumes and the main HDD.
-alias emptytrash='trash -e'
-
-# Update installed Homebrew, and their installed packages
-alias brew_update="brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew prune; brew doctor"
 

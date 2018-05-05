@@ -25,6 +25,7 @@ formulas=(
     #markdown
     node
     python
+    python@2
     tmux
     tree
     wget
@@ -37,7 +38,8 @@ formulas=(
 	parallel
     ffmpeg
     imagemagick
-    irssi
+    'weechat --with-perl --with-python@2' 
+	#irssi
     mpv
     node
     openssl
@@ -46,6 +48,7 @@ formulas=(
     trash
     tree
     vim
+	neomutt/homebrew-neomutt/neomutt
 )
 
 for formula in "${formulas[@]}"; do
@@ -59,3 +62,9 @@ done
 
 brew services start skhd
 brew services start chunkwm
+
+# https://github.com/wee-slack/wee-slack (Integration Slack - WeeChat)
+pip install websocket-client
+wget https://raw.githubusercontent.com/wee-slack/wee-slack/master/wee_slack.py
+cp wee_slack.py ~/.weechat/python/autoload
+

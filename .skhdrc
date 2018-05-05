@@ -16,7 +16,8 @@ alt - 0 : chunkc tiling::desktop —equalize
 alt - return : chunkc tiling::window --toggle fullscreen
 
 # float / unfloat window
-alt - space : chunkc tiling::window --toggle float
+alt - space : chunkc tiling::window --toggle float;\
+          chunkc tiling::window --grid-layout 4:4:1:1:2:2
 
 # move floating windows / windows on a floating space
 alt - up     : chunkc tiling::window --warp-floating fullscreen

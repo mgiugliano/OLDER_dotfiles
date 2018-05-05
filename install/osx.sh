@@ -3,6 +3,11 @@
 echo -e "\\n\\nSetting OS X settings"
 echo "=============================="
 
+# install xcode and other software from the app store
+# everything neccessary first - command line tools
+xcode-select --install
+
+
 # echo "Finder: show all filename extensions"
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 

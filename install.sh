@@ -21,6 +21,7 @@ fi
 #mkdir -p ~/.vim-tmp
 
 source install/vim_plugins.sh
+source install/tmux_plugins.sh
 source install/utils.sh
 
 echo "Done. Reload your terminal."
