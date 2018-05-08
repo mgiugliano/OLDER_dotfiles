@@ -1,8 +1,6 @@
 #
 # Set personal aliases
 #
-# Inspiration from: https://github.com/ohmybash/oh-my-bash/blob/master/aliases/general.aliases.sh
-#
 # For a full list of active aliases, run `alias`
 
 #  -----------------------------
@@ -66,6 +64,7 @@ alias vi="/usr/local/bin/vim"		# brew install vim (the default does not work wit
 alias v="/usr/local/bin/vim"
 alias :w="echo this isn\'t vim 🌟"
 alias :q='exit'
+alias x='exit'
 alias clc="clear"
 alias c='clear'                             # c:            Clear terminal display
 alias ~="cd ~"                              # ~:            Go Home
@@ -90,10 +89,22 @@ alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool fals
 # Show/hide all desktop icons (useful when presenting)
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+# Mute/Unmute the system volume. Plays nice with all other volume settings.
+alias mute="osascript -e 'set volume output muted true'"
+alias unmute="osascript -e 'set volume output muted false'"
 # Update installed Homebrew, and their installed packages
 alias brew_update="brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew prune; brew doctor"
 
+fkill() {
+  kill -9 $(ps ax | fzf | awk '{ print $1 }')
+  }
 
+fcd() {
+  local dir
+    dir=$(find ${1:-.} -path '*/\.*' -prune \
+			                  -o -type d -print 2> /dev/null | fzf +m) &&
+					    cd "$dir"
+						}
 #   ---------------------------
 #   SEARCHING UTILITIES
 #   ---------------------------
@@ -198,6 +209,13 @@ alias htop='sudo htop'				# Be nice (brew install htop)
         echo
     }
 
+
+	alias vimconfig='vim -o ~/.vimrc'
+	alias tmuxconfig='vim ~/.tmux.conf && tmux source-file ~/.tmux.conf'
+	alias sshconfig='vim ~/.ssh/config'
+	alias aliasconfig='vim ~/.bash_aliases && source ~/.bash_aliases'
+	alias hostsconfig='sudo vim /etc/hosts'
+	alias bashconfig="vim -o ~/.bash_profile && source ~/.bash_profile"
 #   ---------------------------
 #   APPLICATIONS SHORTCUTS
 #   ---------------------------
@@ -206,6 +224,11 @@ alias htop='sudo htop'				# Be nice (brew install htop)
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+alias xcode="open -a '/Applications/XCode.app'"
+alias safari="open -a safari"
+alias firefox="open -a firefox"
+alias textedit='open -a TextEdit'
+alias skype='open -a Skype'
 alias matlab="/Applications/MATLAB_R2018a.app/bin/matlab -nodesktop -nosplash"
 alias j="julia"
 alias cws="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/single_characters && ./CWsingle 1 2 3 4 5 6 7 8 9 0 = q w e r t y u i o p a s d f g h j k l z x c v b n m / ?"

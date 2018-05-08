@@ -6,10 +6,6 @@
 " type ':h setting' to learn about individual settings
 " This must be first, because it changes other options as a side effect.
 
-
-" remap leader from \ to ,
-let mapleader = ","
-
 " Disable the arrow keys while in NORMAL mode (forcing muscle memory)
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -30,11 +26,24 @@ nnoremap  ;  :
 " Remap Ctrl+R (redo) to U (although loosing the 'restore line' function)
 "nnoremap U <C-R>
 
+" remap leader from \ to ,
+let mapleader = ","
+
 " Remap some very frequent command to write, quit, and wite&quit
 nnoremap <leader>w :w<CR>
 nnoremap <leader>z :wq!<CR>
 nnoremap <leader>q :q!<CR>
 vnoremap <leader>q <esc>:q!<CR>
+
+" Replace Italian accented letters -----------------------------------------
+" http://www.treccani.it/enciclopedia/acuto-o-grave-accento_%28La-grammatica-italiana%29/
+"nnoremap <leader>a :%s/\([aeiouAEIOU]\)'/\=tr(submatch(1), 'aeiouAEIOU', 'àèìòùÀÈÌÒÙ')/g<CR>
+nnoremap <leader>a :%s/\([aeiouAEIOU]\)'/\=tr(submatch(1), 'aeiouAEIOU', 'àèìòùÀÈÌÒÙ')/g <Bar> %s/ pò/ po'/g <Bar> %s/chè/ché/g <Bar> %s/trè/tré/g<CR>
+" -------------------------------------------------------------------------
+" Toggle Goyo
+nnoremap <leader>1 :Goyo<CR>
+" Justify the current paragraph
+nnoremap <leader>j vipgq
 
 set nocompatible                  " Use Vim settings, rather than Vi settings (much better!).
 set autoread 					  " Automatically reload file, if content changed externally
@@ -196,8 +205,19 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-"------------------------------------------------------------------------------------------------------------
+" vim-pandox-syntax
+augroup pandoc_syntax
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+augroup END
 
+
+"------------------------------------------------------------------------------------------------------------
+" FuzzyFinder 
+"
+set rtp+=/usr/local/opt/fzf
+nnoremap <silent> <C-f> :FZF<CR>
+
+"------------------------------------------------------------------------------------------------------------
 " Greek and Math charatcters
 map! <C-v>G Γ
 map! <C-v>D Δ

@@ -11,6 +11,8 @@ if [ -f ~/.bash_aliases ]; then
   source ~/.bash_aliases
 fi
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 #   Change Prompt
 function prompt {
   local BLACK="\[\033[0;30m\]"
@@ -87,6 +89,9 @@ export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
 # Make new shells get the history lines from all previous
 # shells instead of the default "last window closed" history
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+# Fuzzy Search Finder default options
+export FZF_DEFAULT_OPTS="--reverse --extended --inline-info --height 40%"
 
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell

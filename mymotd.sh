@@ -15,7 +15,7 @@ normal=$(tput sgr0)$(tput setaf 4)
 bold=$(tput bold)$(tput setaf 4)
 echo
 echo "${bold}Shell    :${normal} (l)ls, la, lsd, cd.., .., ..., ...., ....."
-echo "           qfind, o, ql, f, v, :q, clc, h, z" 
+echo "           qfind, o, ql, f, v, :q, clc, h, z, fzf (CTRL+T/R + **TAB)"
 echo "${bold}Network  :${normal} tunnel, castafiore, telstar, imac, mini, bigcrunch"
 echo "           hosts, ip/2, flushdns, pubkey" 
 echo "${bold}Utils    :${normal} emptytrash, hide/showdesktop, hibernateon/off"

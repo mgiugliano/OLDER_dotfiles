@@ -12,8 +12,10 @@ echo -e "\\n\\nInstalling homebrew packages..."
 echo "========================================"
 
 formulas=(
+    caskformula/caskformula/xquartz 
     caskformula/caskformula/inkscape
     caskroom/cask/gimp
+	caskroom/cask/xquartz
     csvkit
     jq
     pandoc-crossref 
@@ -48,7 +50,8 @@ formulas=(
     trash
     tree
     vim
-	neomutt/homebrew-neomutt/neomutt
+	#neomutt/homebrew-neomutt/neomutt
+	fzf
 )
 
 for formula in "${formulas[@]}"; do
@@ -62,6 +65,8 @@ done
 
 brew services start skhd
 brew services start chunkwm
+
+(brew --prefix)/opt/fzf/install
 
 # https://github.com/wee-slack/wee-slack (Integration Slack - WeeChat)
 pip install websocket-client

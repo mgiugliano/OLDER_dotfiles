@@ -29,6 +29,7 @@ git clone https://github.com/ervandew/supertab
 git clone https://github.com/dracula/vim.git
 git clone https://github.com/junegunn/goyo.vim
 git clone https://github.com/vimwiki/vimwiki.git
+git clone https://github.com/vim-pandoc/vim-pandoc-syntax
 
 sudo npm -g install instant-markdown-d
 wget https://raw.githubusercontent.com/suan/vim-instant-markdown/master/after/ftplugin/markdown/instant-markdown.vim -P after/ftplugin/markdown
