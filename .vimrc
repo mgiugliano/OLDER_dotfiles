@@ -1,4 +1,4 @@
-"  Michele Giuglano’s vimrc file - May 5th 2018
+"  MG’s vimrc file - May 5th 2018
 "
 " Note: install vim via brew, as the default vim under macOS
 "       does NOT have the clipboard integration with the os working.
