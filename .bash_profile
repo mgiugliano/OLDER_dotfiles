@@ -100,5 +100,12 @@ shopt -s cdspell
 # Requires installing "z.sh" first - https://github.com/rupa/z
 source ~/z.sh
 
+# Disable homebrew analytics
+export HOMEBREW_NO_ANALYTICS=1
+# Disable crazy characters in brew
+export HOMEBREW_NO_EMOJI=1
+# Stop homebrew from auto-updating
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 # Launches the Message of the Day script
 source ~/.mydotfiles/mymotd.sh

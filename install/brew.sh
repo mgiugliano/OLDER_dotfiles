@@ -17,6 +17,7 @@ formulas=(
     caskroom/cask/gimp
 	caskroom/cask/xquartz
     csvkit
+	keith/formulae/reminders-cli
     jq
     pandoc-crossref 
 	pandoc-citeproc

@@ -229,6 +229,7 @@ alias safari="open -a safari"
 alias firefox="open -a firefox"
 alias textedit='open -a TextEdit'
 alias skype='open -a Skype'
+alias mail='open -a /Applications/mail.app'
 alias matlab="/Applications/MATLAB_R2018a.app/bin/matlab -nodesktop -nosplash"
 alias j="julia"
 alias cws="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/single_characters && ./CWsingle 1 2 3 4 5 6 7 8 9 0 = q w e r t y u i o p a s d f g h j k l z x c v b n m / ?"

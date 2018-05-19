@@ -114,6 +114,8 @@ chunkc tiling::rule --owner Safari --state native-fullscreen
 chunkc tiling::rule --owner Mail --state native-fullscreen 
 chunkc tiling::rule --owner Calendar --state native-fullscreen
 chunkc tiling::rule --owner Spotify --state native-fullscreen
+chunkc tiling::rule --owner Excel --state native-fullscreen
+chunkc tiling::rule --owner Word --state native-fullscreen
 chunkc tiling::rule --owner \"Evernote\" 	--subrole AXStandardWindow --native-fullscreen float --desktop 4
 
 chunkc tiling::rule --owner Skype --state float
