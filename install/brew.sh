@@ -12,10 +12,7 @@ echo -e "\\n\\nInstalling homebrew packages..."
 echo "========================================"
 
 formulas=(
-    caskformula/caskformula/xquartz 
-    caskformula/caskformula/inkscape
     caskroom/cask/gimp
-	caskroom/cask/xquartz
     csvkit
 	keith/formulae/reminders-cli
     jq
@@ -51,7 +48,8 @@ formulas=(
     trash
     tree
     vim
-	#neomutt/homebrew-neomutt/neomutt
+	neomutt/homebrew-neomutt/neomutt
+	lynx
 	fzf
 )
 
@@ -63,6 +61,9 @@ for formula in "${formulas[@]}"; do
         brew install "$formula"
     fi
 done
+
+brew cask install xquartz
+brew cask install inkscape
 
 brew services start skhd
 brew services start chunkwm

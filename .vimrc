@@ -1,19 +1,3 @@
-"  MG’s vimrc file - May 5th 2018
-"
-" Note: install vim via brew, as the default vim under macOS
-"       does NOT have the clipboard integration with the os working.
-"------------------------------------------------------------------------------------------------------------
-" type ':h setting' to learn about individual settings
-" This must be first, because it changes other options as a side effect.
-
-" Disable the arrow keys while in NORMAL mode (forcing muscle memory)
-nnoremap <Up> <NOP>
-nnoremap <Down> <NOP>
-nnoremap <Left> <NOP>
-nnoremap <Right> <NOP>
-
-" Copy and Paste (macOs)
-nnoremap <C-C> :.w !pbcopy<CR><CR>
 nnoremap <C-P> :r !pbpaste<CR>
 
 " Navigate through buffers (visiting 'next' one)
@@ -59,6 +43,8 @@ nnoremap <leader>j vipgq
 
 " (https://www.reddit.com/r/vim/wiki/vimrctips) nocompatible is NOT needed.
 "set nocompatible                  " Use Vim settings, rather than Vi settings (much better!).
+set regexpengine=1 				  " Use the old regex engine to improve performances
+set synmaxcol=200 				  "Don't bother highlighting anything over 200 chars
 set autoread 					  " Automatically reload file, if content changed externally
 set backspace=indent,eol,start    " Make backspace behave in a sane manner.
 set ruler 						  " Show current line and column number in the status bar
@@ -79,10 +65,11 @@ set incsearch                     " search as characters are entered
 "set hlsearch                      " highlight ALL matches
 set nohlsearch                    " Does NOT highlight all matches
 set ignorecase smartcase          " case-sensitive only if they contain upper-case chars
+set showmode                    " Display the current mode
 
 "" Directories for swp files
 "set nobackup
-set backup
+set backup                      " Backups are nice ...
 set backupdir=~/tmp
 set noswapfile
 
@@ -91,7 +78,7 @@ set tabstop=4                     	" number of visual spaces per TAB
 "set softtabstop=4                 	" number of spaces in tab when editing
 "set expandtab                     	" tabs are spaces
 "set smartindent 				  " http://superuser.com/questions/9974
-set autoindent 					  " new line with same indentation
+set autoindent                      " Indent at the same level of the previous line
 filetype indent on      			" load filetype-specific indent files
 set wrap                			" Always wrap long lines:
 set list 							" Turns on option to highlight specific chars below
@@ -280,3 +267,4 @@ inoremap <C-v><= ≤
 inoremap <C-v>0  °
 inoremap <C-v>*  •
 inoremap <C-v>co ⌘
+

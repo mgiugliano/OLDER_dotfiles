@@ -173,11 +173,12 @@ pdf2doi() {
 #   ---------------------------
 #   NETWORK
 #   ---------------------------
-tunnel() { ssh -fN -L 10000:telstar:80 michele@castafiore ; } # SSH Tunnel to acces the lab wiki
+tunnel() { ssh -fN -L 10000:telstar:80 michele@castafiore ; echo "http://localhost:10000/lab/wiki/index.php/Main_Page"; } # SSH Tunnel to acces the lab wiki
 
 # Networking. IP address, dig, DNS, Enhanced WHOIS lookups
 alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"
 alias ip2="dig +short myip.opendns.com @resolver1.opendns.com"
+#alias ip3="curl ifconfig.me"
 alias dig="dig +nocmd any +multiline +noall +answer"
 alias whois="whois -h whois-servers.net"
 alias flushdns="dscacheutil -flushcache"
@@ -230,13 +231,15 @@ alias firefox="open -a firefox"
 alias textedit='open -a TextEdit'
 alias skype='open -a Skype'
 alias mail='open -a /Applications/mail.app'
+alias calibre='open -a /Applications/calibre.app/Contents/MacOS/calibre'
 alias matlab="/Applications/MATLAB_R2018a.app/bin/matlab -nodesktop -nosplash"
 alias j="julia"
 alias cws="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/single_characters && ./CWsingle 1 2 3 4 5 6 7 8 9 0 = q w e r t y u i o p a s d f g h j k l z x c v b n m / ?"
 alias cwp="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/pairs_characters && ./CWpairs q w e r t y u i o p a s d f g h j k l z x c v b n m"
 alias neurojupyter='docker run -d --name myneurojupyter -p 8888:8888 -v "/Users/michi:/opt/notebooks" meekeee/neurojupyter'
 alias qneurojupyter='docker stop myneurojupyter && docker rm myneurojupyter'
-
+alias clock="while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &"
+alias mutt="neomutt"
 #plot() { gnuplot -e "set terminal png; plot '$@' using 1:2 with line" | imgcat; }
 plot() { gnuplot -persist -e "set terminal x11; plot '$@' using 1:2 with line"; } 
 plot1() { gnuplot -persist -e "set terminal x11; plot '$@' with line"; } 

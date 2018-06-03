@@ -18,5 +18,6 @@ ln -s $DOTFILES/.chunkwmrc .chunkwmrc
 ln -s $DOTFILES/.bash_profile .bash_profile
 ln -s $DOTFILES/.bash_aliases .bash_aliases
 ln -s $DOTFILES/.condarc .condarc
+ln -s $DOTFILES/.gitconfig .gitconfig
 
 echo "iTerm2 must be pointed to search the config at $DOTFILES"
