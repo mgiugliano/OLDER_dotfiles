@@ -40,6 +40,7 @@ alias cwd="cd $CWD" 		    # Go back to the current working directory
 alias scwd="export CWD=$(pwd)"  # Set a current working directory
 
 # mv, rm, cp, gunzip
+#alias rm='rm -iv'
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation

@@ -51,6 +51,8 @@ formulas=(
 	neomutt/homebrew-neomutt/neomutt
 	lynx
 	fzf
+	bash
+	bash-completion
 )
 
 for formula in "${formulas[@]}"; do
@@ -62,13 +64,19 @@ for formula in "${formulas[@]}"; do
     fi
 done
 
+# We installed the latest bash version: this require the following install lines
+sudo echo $(brew --prefix)/bin/bash >> /etc/shells
+chsh -s $(brew --prefix)/bin/bash
+
+$(brew --prefix)/etc/bash_completion
+
 brew cask install xquartz
 brew cask install inkscape
 
 brew services start skhd
 brew services start chunkwm
 
-(brew --prefix)/opt/fzf/install
+$(brew --prefix)/opt/fzf/install
 
 # https://github.com/wee-slack/wee-slack (Integration Slack - WeeChat)
 pip install websocket-client

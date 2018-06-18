@@ -12,6 +12,28 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
+bind -f ~/.inputrc
+source ~/.git-completion.bash
+
+shopt -s autocd             # Typing a directory name just by itself will automatically change into that directory.
+shopt -s cdspell            # fix directory name typos when changing directory
+shopt -s direxpand dirspell # xpand directory globs and fix directory name typos whilst completing
+
+# My own git-prompt machinery
+gb() {
+		modified=""
+		if [ -d ".git" ]; then
+		    modified=$(git status -s | grep 'M' | head -n 1| cut -c 2)
+		fi
+		echo -n ' (' && git branch 2>/dev/null | grep '^*' | colrm 1 2 | tr -d '\n' && echo -n $modified && echo -n ')'
+#		echo -n ' (' && git branch 2>/dev/null | grep '^*' | colrm 1 2 | tr -d '\n' && echo -n '-' && echo -n $modified && echo -n ')'
+}
+
+git_branch2() {
+		gb | sed 's/()//'
+}
 
 #   Change Prompt
 function prompt {
@@ -42,13 +64,13 @@ function prompt {
 
  #export PS1="$RED\u$PURPLE@$BLUE\h:$GREEN\W$RESETCOLOR\$ "
  #export PS1="$RESETCOLOR\A  $RED\u$PURPLE@$BLUE\W$RESETCOLOR\$ "
- export PS1="$RESETCOLOR\A $(if [ `date +%H` -lt 19 ]; then echo ''; else echo '☽'; fi) $RED\u$PURPLE@$BLUE\W$RESETCOLOR\$ "
+ #export PS1="$RESETCOLOR\A $(if [ `date +%H` -lt 19 ]; then echo ''; else echo '☽'; fi) $RED\u$PURPLE@$BLUE\W$RESETCOLOR\$ "
+ export PS1="$RESETCOLOR\A $(if [ `date +%H` -lt 19 ]; then echo ''; else echo '☽'; fi) $RED\u$PURPLE@$BLUE\W$REDBOLD\$(git_branch2)$RESETCOLOR $ "
 }
 
 prompt
 
 #   Set Paths
-
   export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
   export PATH="$PATH:/Library/TeX/texbin"
   export PATH="$PATH:/Applications/Julia-0.6.app/Contents/Resources/julia/bin"  #added for Julia
@@ -67,7 +89,10 @@ export EDITOR=/usr/local/bin/vim              # brew install vim  (the default h
 export MANPAGER="less -X"
 
 # Ignore duplicate commands in the history
-export HISTCONTROL=ignoredups
+export HISTCONTROL="ignoredups:erasedups"
+
+# Merge histories of all terminals into one
+shopt -s histappend
 
 # Increase the maximum number of lines contained in the history file
 # (default is 500)
@@ -100,6 +125,9 @@ shopt -s cdspell
 # Requires installing "z.sh" first - https://github.com/rupa/z
 source ~/z.sh
 
+# Add bash-completion for git
+complete -o default -o nospace -F _git g
+
 # Disable homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
 # Disable crazy characters in brew
@@ -109,3 +137,4 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 # Launches the Message of the Day script
 source ~/.mydotfiles/mymotd.sh
+
