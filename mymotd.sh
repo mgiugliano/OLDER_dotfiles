@@ -22,7 +22,7 @@ echo "${bold}Utils    :${normal} emptytrash, hide/showdesktop, hibernateon/off"
 echo "           show/hidedotfiles, done2slack"
 echo "${bold}System   :${normal} diskspace_report, htop, ungzip, fs"
 echo "${bold}Search   :${normal} spotlight, google, g, wikipedia, wikibib, wikimd" 
-echo "${bold}App      :${normal} matlab, subl (s), j, plot, plot1, cws, cwp, rainymood"
+echo "${bold}App      :${normal} matlab, subl (s), j, plot, plot1, cws, cwp"
 echo "           brew_update, q/neurojupyter, rainymood"
 echo "${bold}Bib      :${normal} doi2bib, pbmid2bib, pubmed, pandocme"
 echo

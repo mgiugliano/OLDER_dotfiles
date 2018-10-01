@@ -118,6 +118,7 @@ chunkc tiling::rule --owner Excel --state native-fullscreen
 chunkc tiling::rule --owner Word --state native-fullscreen
 chunkc tiling::rule --owner \"Evernote\" 	--subrole AXStandardWindow --native-fullscreen float --desktop 4
 
+chunkc tiling::rule --owner Preview --state float
 chunkc tiling::rule --owner Skype --state float
 chunkc tiling::rule --owner Sublime --state float
 chunkc tiling::rule --owner Reminders --state float

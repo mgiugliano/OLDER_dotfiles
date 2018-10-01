@@ -71,6 +71,37 @@ alias c='clear'                             # c:            Clear terminal displ
 alias ~="cd ~"                              # ~:            Go Home
 #alias ps="ps -ax"
 
+
+#   ---------------------------
+#   iTerm SPECIFIC
+#   ---------------------------
+# Changing iTerm2 color in MacOSX when SSHing (so you know at a glance that you're no longer in Kansas)
+# Adapted from https://gist.github.com/porras/5856906
+# 1. Create a theme in your terminal setting with the name "SSH" and the desired colors, background, etc.
+# 2. Add this to your .bash_profile (or .bashrc, I always forget the difference ;))
+# 3. Optional but useful: in the terminal, go to Settings > Startup and set "New tabs open with" to
+#    "default settings" (otherwise, if you open a new tab from the changed one, you get a local tab with
+#    the SSH colors)
+
+function tabc() {
+ local name
+ name=$1; if [ -z "$name" ]; then name="Default"; fi # if you have trouble with this, change
+                                                      # "Default" to the name of your default theme
+  echo -e "\033]50;SetProfile=$name\a"
+}
+
+function colorssh() {
+  tabc SSH
+  command ssh "$@"
+  tabc
+}
+
+alias ssh="colorssh"
+
+# This would be easy to extend to check if a theme with the name of the server exists and set it, and
+# fall back to the SSH theme. This way you can have different colors for different remote environments
+# (per project, production, staging, etc.)
+
 #   ---------------------------
 #   macOs SPECIFIC
 #   ---------------------------
@@ -113,6 +144,11 @@ alias qfind="find . -name"				#  qfind:    Quickly search for file
 alias google="googler -n 8 -l en -x " 	# Googler
 g() { googler -n 100 -l en -x --np $1 $2 $3 $4 $5 $6| less; }
 alias wikipedia="wikit " 				# Wikit
+how_in()
+{
+  where="$1"; shift
+  IFS=+ curl "https://cht.sh/$where/ $*"
+}
 
 
 #   ---------------------------
@@ -174,7 +210,7 @@ pdf2doi() {
 #   ---------------------------
 #   NETWORK
 #   ---------------------------
-tunnel() { ssh -fN -L 10000:telstar:80 michele@castafiore ; echo "http://localhost:10000/lab/wiki/index.php/Main_Page"; } # SSH Tunnel to acces the lab wiki
+tunnel() { command ssh -fN -L 10000:telstar:80 michele@castafiore ; echo "http://localhost:10000/lab/wiki/index.php/Main_Page"; } # SSH Tunnel to acces the lab wiki
 
 # Networking. IP address, dig, DNS, Enhanced WHOIS lookups
 alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"
@@ -194,6 +230,8 @@ alias mini="~/vpn.sh UA; ssh michele@mini -t '~/tm.sh'"
 alias bigcrunch="~/vpn.sh UA; ssh michi@bigcrunch -t 'source ~/tm.sh'"
 alias castafiore="ssh michele@castafiore"
 alias telstar="~/vpn.sh UA; ssh michi@telstar"
+alias sissa="ssh mgiuglia@sissa"
+alias sissafs="sshfs mgiuglia@sissa:/u/nb/mgiuglia ~/Dropbox/Pro/projects/ANTWERPEN_LABORATORY/0_SISSA2018/home -ocache=no -onolocalcaches -ovolname=home; sshfs mgiuglia@sissa:/scratch/mgiuglia ~/Dropbox/Pro/projects/ANTWERPEN_LABORATORY/0_SISSA2018/scratch -ocache=no -onolocalcaches -ovolname=scratch"
 
 alias htop='sudo htop'				# Be nice (brew install htop)
 
@@ -235,6 +273,7 @@ alias mail='open -a /Applications/mail.app'
 alias calibre='open -a /Applications/calibre.app/Contents/MacOS/calibre'
 alias matlab="/Applications/MATLAB_R2018a.app/bin/matlab -nodesktop -nosplash"
 alias j="julia"
+alias j1="/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia"
 alias cws="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/single_characters && ./CWsingle 1 2 3 4 5 6 7 8 9 0 = q w e r t y u i o p a s d f g h j k l z x c v b n m / ?"
 alias cwp="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/pairs_characters && ./CWpairs q w e r t y u i o p a s d f g h j k l z x c v b n m"
 alias neurojupyter='docker run -d --name myneurojupyter -p 8888:8888 -v "/Users/michi:/opt/notebooks" meekeee/neurojupyter'

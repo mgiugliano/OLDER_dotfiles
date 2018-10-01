@@ -17,3 +17,6 @@ npm install wikit -g
 
 #sudo pip install bibcure
 
+
+# Dowload and install Jekyll (for static websites)
+gem install bundler jekyll

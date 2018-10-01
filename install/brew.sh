@@ -53,6 +53,7 @@ formulas=(
 	fzf
 	bash
 	bash-completion
+	lftp
 )
 
 for formula in "${formulas[@]}"; do
@@ -72,6 +73,7 @@ $(brew --prefix)/etc/bash_completion
 
 brew cask install xquartz
 brew cask install inkscape
+brew cask install osxfuse
 
 brew services start skhd
 brew services start chunkwm
