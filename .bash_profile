@@ -79,8 +79,7 @@ prompt
   export PATH="$PATH:/Library/TeX/texbin"
   export PATH="$PATH:/Applications/gnuplot/bin"
   export PATH="$PATH:/Users/michi/edirect"
-  export PATH="$PATH:/Users/michi/anaconda/bin"                     # added by Anaconda3 4.3.1 installer
-  
+
 #   Set Default Editor (change 'Vim' to the editor of your choice)
 export EDITOR=/usr/local/bin/vim              # brew install vim  (the default has no clipboard support in OSX)
   #/usr/bin/vim
@@ -138,3 +137,5 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # Launches the Message of the Day script
 source ~/.mydotfiles/mymotd.sh
 
+export PATH="/Applications/NEURON-7.6/nrn/x86_64/bin":$PATH #added by NEURON installer
+export PYTHONPATH="/Applications/NEURON-7.6/nrn/lib/python":$PYTHONPATH #added by NEURON installer

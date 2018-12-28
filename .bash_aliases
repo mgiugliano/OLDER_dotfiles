@@ -95,12 +95,15 @@ function colorssh() {
   command ssh "$@"
   tabc
 }
-
+export -f tabc # make them available to any copy of bash run as a child process
 alias ssh="colorssh"
 
 # This would be easy to extend to check if a theme with the name of the server exists and set it, and
 # fall back to the SSH theme. This way you can have different colors for different remote environments
 # (per project, production, staging, etc.)
+
+# From https://github.com/lf94/peek-for-tmux
+peek() { tmux split-window -p 66 $EDITOR $@ || exit;}
 
 #   ---------------------------
 #   macOs SPECIFIC
@@ -113,8 +116,8 @@ alias emptytrash='trash -e' 				# Empty the Trash on all mounted volumes and the
 alias diff='colordiff'						# with colorized output (run brew install colordiff)
 alias o="open"								# Opens file with default MacOS application
 alias f="open -a Finder ./"					# Opens current directory in MacOS Finder
-alias hibernateon="sudo pmset -a hibernatemode 5"	# Enable hibernation
-alias hibernateoff="sudo pmset -a hibernatemode 0"
+alias hibernateon="sudo pmset -a hibernatemode 25; sudo pmset -a standby 1; sudo pmset -a standbydelaylow 60; sudo pmset -a standbydelayhigh 60"	# Enable hibernation
+alias hibernateoff="sudo pmset -a hibernatemode 0; sudo pmset -a standby 5; sudo pmset -a standbydelaylow 10800; sudo pmset -a standbydelayhigh 86400"
 # Show/hide hidden files in Finder
 alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"

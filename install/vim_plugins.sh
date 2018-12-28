@@ -5,6 +5,7 @@ echo "==========================="
 
 # Install Pathogen (https://github.com/tpope/vim-pathogen)
 mkdir -p ~/.vim/autoload ~/.vim/bundle
+mkdir -p ~/.vim/bundle/vim/colors
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 echo " Remember to add to .vimrc:   execute pathogen#infect()"
@@ -26,10 +27,13 @@ git clone https://github.com/jistr/vim-nerdtree-tabs.git
 git clone https://github.com/tpope/vim-repeat
 git clone https://github.com/svermeulen/vim-easyclip
 git clone https://github.com/ervandew/supertab
-git clone https://github.com/dracula/vim.git
 git clone https://github.com/junegunn/goyo.vim
 git clone https://github.com/vimwiki/vimwiki.git
 git clone https://github.com/vim-pandoc/vim-pandoc-syntax
+
+wget https://github.com/dracula/vim/tree/master/colors/dracula.vim -O ~/.vim/bundle/vim/colors/dracula.vim
+cp pencil.vim ~/.vim/bundle/vim/colors/pencil.vim
+#wget https://github.com/reedes/vim-colors-pencil/tree/master/colors/pencil.vim -O ~/.vim/bundle/vim/colors/pencil.vim
 
 sudo npm -g install instant-markdown-d
 wget https://raw.githubusercontent.com/suan/vim-instant-markdown/master/after/ftplugin/markdown/instant-markdown.vim -P after/ftplugin/markdown

@@ -34,7 +34,7 @@ vnoremap <leader>q <esc>:q!<CR>
 " Replace Italian accented letters -----------------------------------------
 " http://www.treccani.it/enciclopedia/acuto-o-grave-accento_%28La-grammatica-italiana%29/
 "nnoremap <leader>a :%s/\([aeiouAEIOU]\)'/\=tr(submatch(1), 'aeiouAEIOU', 'àèìòùÀÈÌÒÙ')/g<CR>
-nnoremap <leader>a :%s/\([aeiouAEIOU]\)'/\=tr(submatch(1), 'aeiouAEIOU', 'àèìòùÀÈÌÒÙ')/ge <Bar> %s/ pò/ po'/ge <Bar> %s/chè/ché/ge <Bar> %s/trè/tré/ge <Bar> %s/nè/né/ge <Bar> %s/Nè/Né/ge<CR>
+nnoremap <leader>a :silent %s/\([aeiouAEIOU]\)'/\=tr(submatch(1), 'aeiouAEIOU', 'àèìòùÀÈÌÒÙ')/ge <Bar> %s/ pò/ po'/ge <Bar> %s/chè/ché/ge <Bar> %s/trè/tré/ge <Bar> %s/nè/né/ge <Bar> %s/Nè/Né/ge<CR>
 " -------------------------------------------------------------------------
 " Toggle Goyo
 nnoremap <leader>1 :Goyo<CR>
@@ -66,7 +66,7 @@ set incsearch                     " search as characters are entered
 set nohlsearch                    " Does NOT highlight all matches
 set ignorecase smartcase          " case-sensitive only if they contain upper-case chars
 set showmode                    " Display the current mode
-
+set conceallevel=0              " I don't like the rendering of Markdown by VIM
 "" Directories for swp files
 "set nobackup
 set backup                      " Backups are nice ...
@@ -183,6 +183,7 @@ function! s:goyo_enter()
   set noshowmode
   set noshowcmd
   set scrolloff=999
+  set conceallevel=0              " I don't like the rendering of Markdown by VIM
   "Limelight
   " ...
 endfunction
@@ -208,9 +209,29 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
+augroup markdown
+    autocmd!
+    autocmd Filetype markdown,mkd call SetUpMk()
+augroup END
+
+function! SetUpMk()
+    silent exec "!tabc Editing"
+    colorscheme pencil 
+	set background=dark
+    let g:pencil_neutral_headings = 0
+    let g:pencil_higher_contrast_ui = 0
+	let g:pencil_gutter_color = 1
+	let g:pencil_spell_undercurl = 1
+	let g:pencil_terminal_italics = 1
+    set conceallevel=0  " I don't like the rendering of Markdown by VIM
+endfunction
+
+" On exiting Vim, execute the bash function tabc (i.e. reset iTerm2 profile)
+autocmd VimLeavePre * silent exec "!tabc" 
+
 " vim-pandox-syntax
 "augroup pandoc_syntax
-""    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+"    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 "augroup END
 
 

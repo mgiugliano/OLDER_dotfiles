@@ -22,4 +22,10 @@ ln -s $DOTFILES/.gitconfig .gitconfig
 ln -s $DOTFILES/.inputrc .inputrc
 ln -s $DOTFILES/.git-completion.bash .git-completion.bash
 
-echo "iTerm2 must be pointed to search the config at $DOTFILES"
+echo "iTerm2 must be pointed to search its config at $DOTFILES"
+
+echo -e "\\n Updating terminfo database"
+# From https://sookocheff.com/post/vim/italics/
+tic -o $HOME/.terminfo $DOTFILES/install/tmux.terminfo
+tic -o $HOME/.terminfo $DOTFILES/install/tmux-256color.terminfo
+tic -o $HOME/.terminfo $DOTFILES/install/xterm-256color.terminfo
