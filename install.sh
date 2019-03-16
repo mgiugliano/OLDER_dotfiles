@@ -17,9 +17,6 @@ if [ "$(uname)" == "Darwin" ]; then
     source install/osx.sh
 fi
 
-#echo "creating vim directories"
-#mkdir -p ~/.vim-tmp
-
 source install/vim_plugins.sh
 source install/tmux_plugins.sh
 source install/utils.sh

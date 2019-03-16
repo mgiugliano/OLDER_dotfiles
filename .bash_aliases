@@ -30,7 +30,7 @@ alias h='history'
 alias j='jobs -l'
 
 # Easier navigation: .., ...,
-cd() { builtin cd "$@"; ls; }   # Always list directory contents upon 'cd'
+cd() { builtin cd "$@"; ls -GFhp; }   # Always list directory contents upon 'cd'
 alias cd..="cd .."
 alias ..="cd .."
 alias ...="cd ../.."
@@ -63,6 +63,13 @@ alias numfiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden 
 alias vim="/usr/local/bin/vim"		# brew install vim (the default does not work with clipboard)
 alias vi="/usr/local/bin/vim"		# brew install vim (the default does not work with clipboard)
 alias v="/usr/local/bin/vim"
+#vf() { fzf | xargs -r -I % $EDITOR % ; }
+vf() {
+  local files
+  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
+
 alias :w="echo this isn\'t vim 🌟"
 alias :q='exit'
 alias x='exit'
@@ -71,6 +78,7 @@ alias c='clear'                             # c:            Clear terminal displ
 alias ~="cd ~"                              # ~:            Go Home
 #alias ps="ps -ax"
 
+function ff { iterm_profile fff; fff ; cd $(<~/.cache/fff/.fff_d) ; iterm_profile ; }
 
 #   ---------------------------
 #   iTerm SPECIFIC
@@ -83,19 +91,27 @@ alias ~="cd ~"                              # ~:            Go Home
 #    "default settings" (otherwise, if you open a new tab from the changed one, you get a local tab with
 #    the SSH colors)
 
-function tabc() {
- local name
- name=$1; if [ -z "$name" ]; then name="Default"; fi # if you have trouble with this, change
-                                                      # "Default" to the name of your default theme
-  echo -e "\033]50;SetProfile=$name\a"
+function iterm_profile {
+	local profileName
+	if [[ -z $1 ]]; then
+    	profileName="Default"      # "Default" is the name of the default theme
+    else
+		profileName=$1
+	fi
+
+    echo -e "\033]50;SetProfile=$profileName\a"
+	clear
 }
+export -f iterm_profile # make them available to any copy of bash run as a child process
 
 function colorssh() {
-  tabc SSH
+  clear
+  echo "ssh $@"
+  iterm_profile SSH
   command ssh "$@"
-  tabc
+  iterm_profile
+  clear
 }
-export -f tabc # make them available to any copy of bash run as a child process
 alias ssh="colorssh"
 
 # This would be easy to extend to check if a theme with the name of the server exists and set it, and
@@ -103,12 +119,15 @@ alias ssh="colorssh"
 # (per project, production, staging, etc.)
 
 # From https://github.com/lf94/peek-for-tmux
-peek() { tmux split-window -p 66 $EDITOR $@ || exit;}
+peek() { tmux split-window -h -p 66 $EDITOR $@ || exit;}
+
+peek2() { ~/iterm2.sh "$EDITOR $@ && exit" &>/dev/null;}
 
 #   ---------------------------
 #   macOs SPECIFIC
 #   ---------------------------
 ql() { qlmanage -p "$*" >& /dev/null; }    # ql: Opens any file in MacOS Quicklook Preview
+export -f ql                               # make it available to any copy of bash run as a child process
 spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; } # spotlight-search for a file, using MacOS Spotlight's metadata
 #alias rm='rm -i -v'                 		# Preferred 'rm' implementation
 alias rm="trash -v" 						# brew install trash
@@ -127,19 +146,19 @@ alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && 
 # Mute/Unmute the system volume. Plays nice with all other volume settings.
 alias mute="osascript -e 'set volume output muted true'"
 alias unmute="osascript -e 'set volume output muted false'"
+alias muteSpotify="~/.mydotfiles/muteSpotifyAds.sh &"
 # Update installed Homebrew, and their installed packages
-alias brew_update="brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew prune; brew doctor"
+alias brew_update="brew -v update; brew upgrade --force-bottle; brew cleanup --prune-prefix; brew doctor"
 
-fkill() {
-  kill -9 $(ps ax | fzf | awk '{ print $1 }')
-  }
+fkill() { kill -9 $(ps ax | fzf | awk '{ print $1 }') ; }
 
 fcd() {
   local dir
     dir=$(find ${1:-.} -path '*/\.*' -prune \
 			                  -o -type d -print 2> /dev/null | fzf +m) &&
 					    cd "$dir"
-						}
+}
+
 #   ---------------------------
 #   SEARCHING UTILITIES
 #   ---------------------------
@@ -153,7 +172,6 @@ how_in()
   IFS=+ curl "https://cht.sh/$where/ $*"
 }
 
-
 #   ---------------------------
 #   Personal VimWikis
 #   ---------------------------
@@ -164,7 +182,7 @@ wikibib() { $EDITOR /Users/michi/Dropbox/Pro/BibTex/wiki/index.md ;}
 #   Background rainy sounds
 #   ---------------------------
 rainymood() { # MPV Audio Player snippet to RainyMood
-		FILE=$((RANDOM%8)) 
+		FILE=$((RANDOM%8))
 		URL="https://rainymood.com/audio1110/${FILE}.ogg"
 		mpv "$URL" && rainymood
 }
@@ -223,9 +241,9 @@ alias dig="dig +nocmd any +multiline +noall +answer"
 alias whois="whois -h whois-servers.net"
 alias flushdns="dscacheutil -flushcache"
 alias hosts='sudo vim /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
-# I am using tmux as an environment (for both local and remote connections): 
+# I am using tmux as an environment (for both local and remote connections):
 # started up programs and processes will stay in the background upon "detaching" from the session.
-alias tm="~/tm.sh" 
+alias tm="~/tm.sh"
 # Copy my public key to the pasteboard
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
 alias imac="~/vpn.sh UA; ssh michi@imac -t '~/tm.sh'"
@@ -233,8 +251,10 @@ alias mini="~/vpn.sh UA; ssh michele@mini -t '~/tm.sh'"
 alias bigcrunch="~/vpn.sh UA; ssh michi@bigcrunch -t 'source ~/tm.sh'"
 alias castafiore="ssh michele@castafiore"
 alias telstar="~/vpn.sh UA; ssh michi@telstar"
-alias sissa="ssh mgiuglia@sissa"
-alias sissafs="sshfs mgiuglia@sissa:/u/nb/mgiuglia ~/Dropbox/Pro/projects/ANTWERPEN_LABORATORY/0_SISSA2018/home -ocache=no -onolocalcaches -ovolname=home; sshfs mgiuglia@sissa:/scratch/mgiuglia ~/Dropbox/Pro/projects/ANTWERPEN_LABORATORY/0_SISSA2018/scratch -ocache=no -onolocalcaches -ovolname=scratch"
+alias stargate="~/vpn.sh UA; ssh michi@stargate"
+alias ballerini="~/vpn.sh SISSA; ssh macpro@ballerini"
+alias sissa="~/vpn.sh SISSA; ssh mgiuglia@sissa"
+alias sissafs="~/vpn.sh SISSA; sshfs mgiuglia@sissa:/u/nb/mgiuglia ~/Dropbox/Pro/projects/ANTWERPEN_LABORATORY/0_SISSA2018/home -ocache=no -onolocalcaches -ovolname=home; sshfs mgiuglia@sissa:/scratch/mgiuglia ~/Dropbox/Pro/projects/ANTWERPEN_LABORATORY/0_SISSA2018/scratch -ocache=no -onolocalcaches -ovolname=scratch"
 
 alias htop='sudo htop'				# Be nice (brew install htop)
 
@@ -284,9 +304,5 @@ alias qneurojupyter='docker stop myneurojupyter && docker rm myneurojupyter'
 alias clock="while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &"
 alias mutt="neomutt"
 #plot() { gnuplot -e "set terminal png; plot '$@' using 1:2 with line" | imgcat; }
-plot() { gnuplot -persist -e "set terminal x11; plot '$@' using 1:2 with line"; } 
-plot1() { gnuplot -persist -e "set terminal x11; plot '$@' with line"; } 
-
-
-
-
+plot() { gnuplot -persist -e "set terminal x11; plot '$@' using 1:2 with line"; }
+plot1() { gnuplot -persist -e "set terminal x11; plot '$@' with line"; }

@@ -7,12 +7,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins by VimPlug (do :PlugInstall :PlugUpdate ...
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
@@ -22,14 +16,14 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-repeat'
 Plug 'ervandew/supertab'
+"Plug 'svermeulen/vim-easyclip'
 Plug 'sheerun/vim-polyglot'
+Plug 'scrooloose/nerdtree'
 Plug 'moll/vim-bbye'
 Plug 'airblade/vim-gitgutter'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'mgiugliano/vim-colors-pencil', { 'as': 'pencil' }
 Plug 'dylanaraps/fff.vim'
-"Plug 'scrooloose/nerdtree'
-"Plug 'svermeulen/vim-easyclip'
 "Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'vimwiki/vimwiki'
 call plug#end()
@@ -76,12 +70,12 @@ nnoremap <leader>s z=
 nnoremap S :%s//g<Left><Left>
 " Replace all is aliased to S.
 
-"map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
 "NERDTree on/off
 
 " Open fff split on the left side (NERDtree style).
 " Vertical split (NERDtree style).
-let g:fff#split = "30vnew"
+let g:fff#split = "20vnew"
 let g:fff#split_direction = "nosplitbelow nosplitright"
 " Open fff on press of 'f'
 nnoremap f :F<CR>
@@ -270,27 +264,15 @@ let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 
 " NERDTree
-"let NERDTreeShowHidden=1
-" launch it when vim starts w/o arguments
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" launch it when vim is invoked with a folder as argument
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-" close vim if NERDTree is the only buffer open
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | silent exec "!iterm_profile" | q | endif
-
-" fff
+let NERDTreeShowHidden=1
 " launch it when vim starts w/o arguments
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | exe 'F' | endif
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " launch it when vim is invoked with a folder as argument
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'F' argv()[0] | wincmd p | ene | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 " close vim if NERDTree is the only buffer open
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | silent exec "!iterm_profile" | q | endif
-
-
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | silent exec "!iterm_profile" | q | endif
 
 " Goyo
 function! s:goyo_enter()

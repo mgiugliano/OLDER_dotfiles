@@ -19,9 +19,9 @@ alt - space : chunkc tiling::window --toggle float;\
           chunkc tiling::window --grid-layout 4:4:1:1:2:2
 
 # move floating windows / windows on a floating space
-alt - up     : chunkc tiling::window --warp biggest 
-alt - left   : chunkc tiling::window --warp west 
-alt - right  : chunkc tiling::window --warp east 
+alt - up     : chunkc tiling::window --warp biggest
+alt - left   : chunkc tiling::window --warp west
+alt - right  : chunkc tiling::window --warp east
 #alt - up     : chunkc tiling::window --warp-floating fullscreen
 #alt - left   : chunkc tiling::window --warp-floating left
 #alt - right  : chunkc tiling::window --warp-floating right
@@ -34,8 +34,8 @@ shift + alt - down : chunkc tiling::window --warp-floating bottom-right
 alt - r : chunkc tiling::desktop --rotate 90
 
 # toggle window split type
-alt - t : chunkc tiling::window --toggle split
-
+#alt - t : chunkc tiling::window --toggle split
+alt - t : /Applications/iTerm.app/Contents/MacOS/iTerm2
 # change layout of desktop
 alt - a : chunkc tiling::desktop --layout bsp
 alt - s : chunkc tiling::desktop --layout monocle

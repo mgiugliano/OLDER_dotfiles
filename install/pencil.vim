@@ -1,4 +1,4 @@
-" Vim Color File
+" Vim Color File - slightly modified by MG
 " Name:       pencil.vim
 " Version:    0.6
 " Maintainer: github.com/reedes github.com/mattly

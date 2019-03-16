@@ -16,7 +16,7 @@ formulas=(
     csvkit
 	keith/formulae/reminders-cli
     jq
-    pandoc-crossref 
+    pandoc-crossref
 	pandoc-citeproc
     pandoc
     reattach-to-user-namespace
@@ -31,20 +31,20 @@ formulas=(
     wget
     vim
     mas
-    crisidev/homebrew-chunkwm/chunkwm
+    #crisidev/homebrew-chunkwm/chunkwm
+    #koekeishiya/formulae/skhd
     colordiff
     fortune
     htop
 	parallel
     ffmpeg
     imagemagick
-    'weechat --with-perl --with-python@2' 
+    'weechat --with-perl --with-python@2'
 	#irssi
     mpv
     node
     openssl
     python3
-    koekeishiya/formulae/skhd 
     trash
     tree
     vim
@@ -54,6 +54,7 @@ formulas=(
 	bash
 	bash-completion
 	lftp
+	googler
 )
 
 for formula in "${formulas[@]}"; do
@@ -74,9 +75,12 @@ $(brew --prefix)/etc/bash_completion
 brew cask install xquartz
 brew cask install inkscape
 brew cask install osxfuse
+brew cask install amethyst
+brew cask install quicklook-json
 
-brew services start skhd
-brew services start chunkwm
+sudo cp ~/.mydotfiles/com.amethyst.Amethyst.plist ~/Library/Preferences/
+#brew services start skhd
+#brew services start chunkwm
 
 $(brew --prefix)/opt/fzf/install
 
@@ -85,3 +89,5 @@ pip install websocket-client
 wget https://raw.githubusercontent.com/wee-slack/wee-slack/master/wee_slack.py
 cp wee_slack.py ~/.weechat/python/autoload
 
+# https://github.com/tomduck/pandoc-fignos [numbering and references in PanDoc]
+pip install pandoc-fignos

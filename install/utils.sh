@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 
-# Download "z", "jump around"
-curl -O https://raw.githubusercontent.com/rupa/z/z.sh
+# Install "z", "jump around" - https://github.com/rupa/z/
+rm -f ~/tmp/z
+git clone --depth 1 https://github.com/rupa/z/ ~/tmp/z
+chmod +x ~/tmp/z/z.sh
+command mv ~/tmp/z/z.sh /usr/local/bin/
+command mv ~/tmp/z/z.1 /usr/local/share/man/man1
+command rm -rf ~/tmp/z
 
-# Download and installs "googler"
-sudo curl -o /usr/local/bin/googler https://raw.githubusercontent.com/jarun/googler/v3.5/googler
-sudo chmod +x /usr/local/bin/googler
+rm -f ~/tmp/fff
+git clone --depth 1 https://github.com/dylanaraps/fff ~/tmp/fff
+chmod +x ~/tmp/fff/fff
+command mv ~/tmp/fff/fff /usr/local/bin
+command mv ~/tmp/fff/fff.1 /usr/local/share/man/man1
+command rm -rf ~/tmp/fff
+
 
 npm install wikit -g
 

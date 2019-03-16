@@ -1,6 +1,6 @@
 # ~/.bash_profile
 
-#  bash_profile of Michele Giugliano, 20/4/2018
+#  bash_profile of Michele Giugliano, 4/1/2019
 #  ---------------------------------------------------------------------------
 #  Description: BASH configurations and aliases
 #  ---------------------------------------------------------------------------
@@ -20,6 +20,13 @@ source ~/.git-completion.bash
 shopt -s autocd             # Typing a directory name just by itself will automatically change into that directory.
 shopt -s cdspell            # fix directory name typos when changing directory
 shopt -s direxpand dirspell # xpand directory globs and fix directory name typos whilst completing
+
+# Autocomplete without case-sensitivity
+set show-all-if-ambiguous on
+set completion-ignore-case on
+
+# Vi mode in Bash
+set -o vi
 
 # My own git-prompt machinery
 gb() {
@@ -70,36 +77,25 @@ function prompt {
 
 prompt
 
-#   Set Paths
-  export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
-  export PATH="$PATH:/Library/TeX/texbin"
-  export PATH="$PATH:/Applications/Julia-0.6.app/Contents/Resources/julia/bin"  #added for Julia
-  export PATH="$PATH:/Applications/NEURON-7.5/nrn/x86_64/bin"                   #added by NEURON installer
-  export PATH="$PATH:/opt/X11/bin"
-  export PATH="$PATH:/Library/TeX/texbin"
-  export PATH="$PATH:/Applications/gnuplot/bin"
-  export PATH="$PATH:/Users/michi/edirect"
-
-#   Set Default Editor (change 'Vim' to the editor of your choice)
 export EDITOR=/usr/local/bin/vim              # brew install vim  (the default has no clipboard support in OSX)
-  #/usr/bin/vim
+export MANPAGER="less -X"                     # Don’t clear the screen after quitting a manual page
+export HISTCONTROL="ignoredups:erasedups"     # Ignore duplicate commands in the history
+export HISTFILESIZE=10000                     # Increase the maximum number of lines contained in the history file
+shopt -s histappend                           # Merge histories of all terminals into one
 
-# Don’t clear the screen after quitting a manual page
-export MANPAGER="less -X"
+export BIB="/Users/michi/Dropbox/Pro/BibTex/bib.bib"
 
-# Ignore duplicate commands in the history
-export HISTCONTROL="ignoredups:erasedups"
+export FFF_COL1=5                           # Setting for "fff"
+export FFF_COL2=1                           # Setting for "fff"
+export FFF_OPENER="open"                    # Setting for "fff" - was "open"
+export FFF_FAV1=~/                          # Setting for "fff"
+export FFF_FAV2=~/Documents                 # Setting for "fff"
+export FFF_FAV3=~/Dropbox/Pro               # Setting for "fff"
+export FFF_FAV4=~/Dropbox/Pvt               # Setting for "fff"
+export FFF_FAV5=~/Dropbox/Pvt/dev           # Setting for "fff"
+export FFF_FAV6=~/Desktop/AUTO_DELETE       # Setting for "fff"
 
-# Merge histories of all terminals into one
-shopt -s histappend
 
-# Increase the maximum number of lines contained in the history file
-# (default is 500)
-export HISTFILESIZE=10000
-
-# Autocomplete without case-sensitivity
-set show-all-if-ambiguous on
-set completion-ignore-case on
 
 # added by MG as a remedy to the import matplotlib error messages
 export LC_ALL=en_US.UTF-8
@@ -117,25 +113,28 @@ export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 # Fuzzy Search Finder default options
 export FZF_DEFAULT_OPTS="--reverse --extended --inline-info --height 40%"
 
-# Autocorrect typos in path names when using `cd`
-shopt -s cdspell
-
 # Launches the "z" (jump around folders) command
 # Requires installing "z.sh" first - https://github.com/rupa/z
-source ~/z.sh
+source /usr/local/bin/z.sh
 
 # Add bash-completion for git
 complete -o default -o nospace -F _git g
 
-# Disable homebrew analytics
-export HOMEBREW_NO_ANALYTICS=1
-# Disable crazy characters in brew
-export HOMEBREW_NO_EMOJI=1
-# Stop homebrew from auto-updating
-export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_ANALYTICS=1    	# Disable homebrew analytics
+export HOMEBREW_NO_EMOJI=1          # Disable crazy characters in brew
+export HOMEBREW_NO_AUTO_UPDATE=1    # Stop homebrew from auto-updating
 
 # Launches the Message of the Day script
 source ~/.mydotfiles/mymotd.sh
 
+#   Set Paths
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
+export PATH="$PATH:/Library/TeX/texbin"
+export PATH="$PATH:/Applications/Julia-1.0.app/Contents/Resources/julia/bin"  #added for Julia
+export PATH="$PATH:/opt/X11/bin"
+export PATH="$PATH:/Library/TeX/texbin"
+export PATH="$PATH:/Applications/gnuplot/bin"
+export PATH="$PATH:/Users/michi/edirect"
 export PATH="/Applications/NEURON-7.6/nrn/x86_64/bin":$PATH #added by NEURON installer
+
 export PYTHONPATH="/Applications/NEURON-7.6/nrn/lib/python":$PYTHONPATH #added by NEURON installer

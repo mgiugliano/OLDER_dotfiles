@@ -12,7 +12,7 @@ xcode-select --install
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # echo "show hidden files by default"
-defaults write com.apple.Finder AppleShowAllFiles -bool true 
+defaults write com.apple.Finder AppleShowAllFiles -bool true
 
 # echo "Hide Menu Bar"
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
@@ -65,10 +65,10 @@ defaults write com.apple.finder ShowStatusBar -bool true
 #defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # echo "Set a blazingly fast keyboard repeat rate"
-defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain KeyRepeat -int 1
 
 # echo "Set a shorter Delay until key repeat" # was 25
-defaults write NSGlobalDomain InitialKeyRepeat -int 15
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
 #echo "Disable auto-correct"
 #defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
