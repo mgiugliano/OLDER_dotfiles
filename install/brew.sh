@@ -55,6 +55,8 @@ formulas=(
 	bash-completion
 	lftp
 	googler
+	ripgrep
+	fd
 )
 
 for formula in "${formulas[@]}"; do
@@ -77,6 +79,7 @@ brew cask install inkscape
 brew cask install osxfuse
 brew cask install amethyst
 brew cask install quicklook-json
+brew cask install keepassxc
 
 sudo cp ~/.mydotfiles/com.amethyst.Amethyst.plist ~/Library/Preferences/
 #brew services start skhd
@@ -91,3 +94,8 @@ cp wee_slack.py ~/.weechat/python/autoload
 
 # https://github.com/tomduck/pandoc-fignos [numbering and references in PanDoc]
 pip install pandoc-fignos
+
+echo "Setting the right bash by > chsh -s /usr/local/bin/bash"
+chsh -s /usr/local/bin/bash
+
+echo "MacVim NOT installed - please go to: https://github.com/macvim-dev/macvim/releases"

@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""d
 " This is my .vimrc configuration file
 " Michele - March 2019
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -16,6 +16,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-sensible'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -33,6 +34,8 @@ Plug 'dylanaraps/fff.vim'
 "Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'vimwiki/vimwiki'
 call plug#end()
+
+filetype plugin on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -73,6 +76,10 @@ map <leader>o :setlocal spell<CR>
 nnoremap <leader>s z=
 " Spell checking - suggest replacement
 
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+" Pressing CTRL+L in insert mode jumps to the previous mistake ([s),
+" then picks the first suggestion (1z=) and then jumps back `[a
+
 nnoremap S :%s//g<Left><Left>
 " Replace all is aliased to S.
 
@@ -85,6 +92,11 @@ let g:fff#split = "30vnew"
 let g:fff#split_direction = "nosplitbelow nosplitright"
 " Open fff on press of 'f'
 nnoremap f :F<CR>
+
+" FuzzyFind Files on press of <leader>f
+nnoremap <leader>f :let g:fzf_layout = { 'down': '~40%' }<CR>:Files ./<CR>
+nnoremap <leader>e :let g:fzf_layout = { 'down': '~80%' }<CR>:Files ~/<CR>
+nnoremap <leader>g :let g:fzf_layout = { 'down': '~80%' }<CR>:Rg<CR>
 
 " nnoremap <C-P> :r !pbpaste<CR>
 " Use Ctrl+P to paste from the clipboard (on macOs)
@@ -106,6 +118,7 @@ map \\ <Esc>/<++><Enter>"_c4l
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 color dracula
+set guifont=SFMono-Light:h20 	  " Only used by macvim
 set spelllang=en_us,it
 
 " Editor Internals, Controls, and Appearances
@@ -182,6 +195,11 @@ highlight ColorColumn ctermbg=black         " Outline the character at column 81
 call matchadd('ColorColumn', '\%81v', 100)  " with a different color (altering on col>80)
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o " No auto commenting on newline
 
+" Change cursor shape between insert and normal mode in iTerm2.app
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+endif
 
 autocmd VimLeavePre * silent exec "!iterm_profile"
 " On exiting Vim, execute my bash func iterm_profile() (i.e. to reset iTerm2 profile)
@@ -216,6 +234,7 @@ func! WP()
 	setlocal spell
 	set thesaurus+=~/.vim/words.txt
 	set complete+=s
+
 	noremap j gj
 	noremap k gk
 	noremap 0 g0
@@ -332,6 +351,16 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " FuzzyFinder
 set rtp+=/usr/local/opt/fzf
 nnoremap <silent> <C-f> :FZF<CR>
+
+" FuzzyFinder VimPlugin
+let g:fzf_layout = { 'down': '~60%' }
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Snippets - from LukeSmithxyz

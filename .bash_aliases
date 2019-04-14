@@ -27,7 +27,7 @@ alias fgrep='fgrep --color=auto'
 
 # History and background jobs
 alias h='history'
-alias j='jobs -l'
+#alias j='jobs -l'
 
 # Easier navigation: .., ...,
 cd() { builtin cd "$@"; ls -GFhp; }   # Always list directory contents upon 'cd'
@@ -44,7 +44,7 @@ alias scwd="export CWD=$(pwd)"  # Set a current working directory
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
-alias less='less -FSRXc'                    # Preferred 'less' implementation
+alias less='less -FRXc'                    # Preferred 'less' implementation (option S removed)
 alias wget='wget -c'                        # Preferred 'wget' implementation (resume download)
 
 alias ungzip="gunzip -k"
@@ -78,6 +78,7 @@ alias c='clear'                             # c:            Clear terminal displ
 alias ~="cd ~"                              # ~:            Go Home
 #alias ps="ps -ax"
 
+# fff invoked as ff makes the last folder explore the current working directory upon exit.
 function ff { iterm_profile fff; fff ; cd $(<~/.cache/fff/.fff_d) ; iterm_profile ; }
 
 #   ---------------------------
@@ -158,6 +159,60 @@ fcd() {
 			                  -o -type d -print 2> /dev/null | fzf +m) &&
 					    cd "$dir"
 }
+
+# fuzzy (dir) changer:
+# I wrote the following command to directly navigate to any directory, upon fuzzy finding
+# a file containied in it - if no result or aborted, no action is taken.
+fc() {
+  local file cwd key
+  cwd=$(pwd)      # store the current working directory in 'cwd'
+  command cd ~/   # "command cd" to home (for fzf) and do the search...
+  IFS=$'\n' file=$(fzf-tmux --query="$1" --select-1 --exit-0 --expect=ctrl-j,ctrl-o,ctrl-e)
+
+  key=$(head -1 <<< "$file")               # this may be empty or may be ctrl-j/o/e
+  file=$(head -2 <<< "$file" | tail -1)    # this contains the file
+
+  if [ -n "$key" ]; then
+	  [ "$key" = ctrl-o ] && open "$file"
+	  [ "$key" = ctrl-e ] && ${EDITOR:-vim} "$file"
+	  [ "$key" = ctrl-j ] && open -a Finder $(dirname $file)
+  else # key is empty - the user must have simply selected the file to navigate to
+  	if [ -n "$file" ]; then
+	  cd $(dirname $file)
+    else
+	  command cd $cwd
+	fi
+  fi
+}
+alias j="fc"
+
+fc2() {
+  local file key
+  IFS=$'\n' file=$(fzf-tmux --query="$1" --select-1 --exit-0 --expect=ctrl-j,ctrl-o,ctrl-e)
+
+  key=$(head -1 <<< "$file")               # this may be empty or may be ctrl-j/o/e
+  file=$(head -2 <<< "$file" | tail -1)    # this contains the file
+
+  if [ -n "$key" ]; then
+	  [ "$key" = ctrl-o ] && open "$file"
+	  [ "$key" = ctrl-e ] && ${EDITOR:-vim} "$file"
+	  [ "$key" = ctrl-j ] && open -a Finder $(dirname $file)
+  else # key is empty - the user must have simply selected the file to navigate to
+  	if [ -n "$file" ]; then
+	  cd $(dirname $file)
+	fi
+  fi
+}
+alias jj="fc2"
+
+
+fssh() {
+  local selected_host=$(cat ~/.ssh/known_hosts | awk '{print $1;}' | fzf --query "$LBUFFER")
+  if [ -n "$selected_host" ]; then
+    ssh ${selected_host}
+  fi
+}
+
 
 #   ---------------------------
 #   SEARCHING UTILITIES
@@ -240,7 +295,7 @@ alias ip2="dig +short myip.opendns.com @resolver1.opendns.com"
 alias dig="dig +nocmd any +multiline +noall +answer"
 alias whois="whois -h whois-servers.net"
 alias flushdns="dscacheutil -flushcache"
-alias hosts='sudo vim /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
+
 # I am using tmux as an environment (for both local and remote connections):
 # started up programs and processes will stay in the background upon "detaching" from the session.
 alias tm="~/tm.sh"
@@ -278,7 +333,9 @@ alias htop='sudo htop'				# Be nice (brew install htop)
 	alias sshconfig='vim ~/.ssh/config'
 	alias aliasconfig='vim ~/.bash_aliases && source ~/.bash_aliases'
 	alias hostsconfig='sudo vim /etc/hosts'
+	alias hosts='sudo vim /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 	alias bashconfig="vim -o ~/.bash_profile && source ~/.bash_profile"
+
 #   ---------------------------
 #   APPLICATIONS SHORTCUTS
 #   ---------------------------
@@ -287,22 +344,22 @@ alias htop='sudo htop'				# Be nice (brew install htop)
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
-alias xcode="open -a '/Applications/XCode.app'"
+#alias xcode="open -a '/Applications/XCode.app'"
 alias safari="open -a safari"
 alias firefox="open -a firefox"
-alias textedit='open -a TextEdit'
+#alias textedit='open -a TextEdit'
 alias skype='open -a Skype'
 alias mail='open -a /Applications/mail.app'
 alias calibre='open -a /Applications/calibre.app/Contents/MacOS/calibre'
 alias matlab="/Applications/MATLAB_R2018a.app/bin/matlab -nodesktop -nosplash"
-alias j="julia"
-alias j1="/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia"
+alias j1="/Applications/Julia-1.1.app/Contents/Resources/julia/bin/julia"
+alias gvim='/Applications/MacVim.app/Contents/bin/gvim -c "set lines=50 columns=98" -p'
 alias cws="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/single_characters && ./CWsingle 1 2 3 4 5 6 7 8 9 0 = q w e r t y u i o p a s d f g h j k l z x c v b n m / ?"
 alias cwp="cd ~/Dropbox/Pvt/HAM_RADIO/CW_Academy/Michele_practice_CW/pairs_characters && ./CWpairs q w e r t y u i o p a s d f g h j k l z x c v b n m"
-alias neurojupyter='docker run -d --name myneurojupyter -p 8888:8888 -v "/Users/michi:/opt/notebooks" meekeee/neurojupyter'
-alias qneurojupyter='docker stop myneurojupyter && docker rm myneurojupyter'
+#alias neurojupyter='docker run -d --name myneurojupyter -p 8888:8888 -v "/Users/michi:/opt/notebooks" meekeee/neurojupyter'
+#alias qneurojupyter='docker stop myneurojupyter && docker rm myneurojupyter'
 alias clock="while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &"
-alias mutt="neomutt"
+#alias mutt="neomutt"
 #plot() { gnuplot -e "set terminal png; plot '$@' using 1:2 with line" | imgcat; }
 plot() { gnuplot -persist -e "set terminal x11; plot '$@' using 1:2 with line"; }
 plot1() { gnuplot -persist -e "set terminal x11; plot '$@' with line"; }

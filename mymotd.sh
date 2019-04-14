@@ -7,11 +7,16 @@ normal=$(tput sgr0)
 
 #echo "${bold}Logged ☻n:${normal} $(uname -n) [$(uname -s) $(uname -r) $(uname -m)]"
 #echo "${bold}Uptime   :${normal} $(uptime)"
-echo "${bold}Public IP:${normal} $(curl -s ipinfo.io/ip)"
-echo "${bold}Antwerp  :${normal} $(curl -s wttr.in/Antwerpen?T | grep -m 1 -Eo -e '-?[[:digit:]].*°C.*')"
-echo "${bold}Lausanne :${normal} $(curl -s wttr.in/Lausanne?T | grep -m 1 -Eo -e '-?[[:digit:]].*°C.*')"
-echo "${bold}Trieste :${normal} $(curl -s wttr.in/Trieste?T | grep -m 1 -Eo -e '-?[[:digit:]].*°C.*')"
-echo "${bold}Milan :${normal} $(curl -s wttr.in/Milan?T | grep -m 1 -Eo -e '-?[[:digit:]].*°C.*')"
+if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
+  	#echo "IPv4 is up"
+	echo "${bold}Public IP:${normal} $(curl -s ipinfo.io/ip)"
+#	echo "${bold}Antwerp  :${normal} $(curl -s wttr.in/Antwerpen?T | grep -m 1 -Eo -e '-?[[:digit:]].*°C.*')"
+#	echo "${bold}Lausanne :${normal} $(curl -s wttr.in/Lausanne?T | grep -m 1 -Eo -e '-?[[:digit:]].*°C.*')"
+	echo "${bold}Trieste :${normal} $(curl -s wttr.in/Trieste?T | grep -m 1 -Eo -e '-?[[:digit:]].*°C.*')"
+	echo "${bold}Milan :${normal} $(curl -s wttr.in/Milan?T | grep -m 1 -Eo -e '-?[[:digit:]].*°C.*')"
+else
+  	echo "IPv4 is down"
+fi
 
 normal=$(tput sgr0)$(tput setaf 4)
 bold=$(tput bold)$(tput setaf 4)

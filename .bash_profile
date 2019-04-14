@@ -26,7 +26,7 @@ set show-all-if-ambiguous on
 set completion-ignore-case on
 
 # Vi mode in Bash
-set -o vi
+#set -o vi
 
 # My own git-prompt machinery
 gb() {
@@ -111,7 +111,12 @@ export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # Fuzzy Search Finder default options
-export FZF_DEFAULT_OPTS="--reverse --extended --inline-info --height 40%"
+export FZF_DEFAULT_OPTS='--reverse --extended --color=bg+:24 --inline-info --height=95% --preview="echo $(basename {}) - $(stat -f%z {}); echo; bat -p --color=always --theme=zenburn {}" --preview-window=right:50%:wrap'
+#export FZF_DEFAULT_OPTS='--reverse --extended --color=bw --inline-info --height=95% --preview="echo $(basename {}) - $(stat -f%z {}); echo; head -$LINES {}" --preview-window=right:50%:wrap'
+#export FZF_DEFAULT_COMMAND='find'
+#export FZF_DEFAULT_COMMAND='rg --files'
+export FZF_DEFAULT_COMMAND='fd --type file'
+export FZF_CTRL_T_COMMAND='$FZF_DEFAULT_COMMAND'
 
 # Launches the "z" (jump around folders) command
 # Requires installing "z.sh" first - https://github.com/rupa/z

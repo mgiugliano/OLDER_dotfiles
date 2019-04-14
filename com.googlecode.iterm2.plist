@@ -1391,17 +1391,19 @@
 	<key>Default Bookmark Guid</key>
 	<string>6FE1B63B-96A2-4EE0-9AAB-DE8C1C62FB24</string>
 	<key>DimBackgroundWindows</key>
-	<false/>
+	<true/>
 	<key>DimInactiveSplitPanes</key>
 	<true/>
 	<key>DimOnlyText</key>
-	<false/>
+	<true/>
 	<key>DisableFullscreenTransparency</key>
 	<true/>
 	<key>EnableRendezvous</key>
 	<false/>
 	<key>EscapeShellCharsWithBackslash</key>
 	<false/>
+	<key>FlashTabBarInFullscreen</key>
+	<true/>
 	<key>FocusFollowsMouse</key>
 	<false/>
 	<key>FsTabDelay</key>
@@ -1508,7 +1510,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>304 271 796 486 0 0 1280 800 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>4 19 1272 777 0 0 1280 800 </string>
+	<string>0 0 1280 800 0 0 1280 800 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1715,7 +1717,7 @@
 			<key>Blink Allowed</key>
 			<false/>
 			<key>Blinking Cursor</key>
-			<true/>
+			<false/>
 			<key>Blur</key>
 			<false/>
 			<key>Blur Radius</key>
@@ -2539,7 +2541,7 @@
 			<key>Blink Allowed</key>
 			<false/>
 			<key>Blinking Cursor</key>
-			<true/>
+			<false/>
 			<key>Blur</key>
 			<false/>
 			<key>Blur Radius</key>
@@ -3367,7 +3369,7 @@
 			<key>Blink Allowed</key>
 			<false/>
 			<key>Blinking Cursor</key>
-			<true/>
+			<false/>
 			<key>Blur</key>
 			<false/>
 			<key>Blur Radius</key>
@@ -4191,7 +4193,7 @@
 			<key>Blink Allowed</key>
 			<false/>
 			<key>Blinking Cursor</key>
-			<true/>
+			<false/>
 			<key>Blur</key>
 			<false/>
 			<key>Blur Radius</key>
@@ -4816,6 +4818,10 @@
 	<true/>
 	<key>NoSyncConfirmBeta</key>
 	<true/>
+	<key>NoSyncConfirmRunOpenFile</key>
+	<true/>
+	<key>NoSyncConfirmRunOpenFile_selection</key>
+	<integer>0</integer>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
 	<false/>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
@@ -5008,7 +5014,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-01-04T19:10:16Z</date>
+	<date>2019-04-12T02:53:01Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
@@ -5020,15 +5026,19 @@
 	<key>SmartPlacement</key>
 	<true/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.40000000596046448</real>
+	<real>0.59999999999999998</real>
+	<key>StretchTabsToFillBar</key>
+	<true/>
 	<key>SwitchTabModifier</key>
 	<integer>4</integer>
 	<key>SwitchWindowModifier</key>
 	<integer>6</integer>
 	<key>TabStyle</key>
 	<integer>2</integer>
+	<key>TabStyleWithAutomaticOption</key>
+	<integer>3</integer>
 	<key>TabViewType</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>ThreeFingerEmulates</key>
 	<false/>
 	<key>TimeBetweenTips</key>
@@ -5067,7 +5077,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.2.6</string>
+	<string>3.2.8</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
